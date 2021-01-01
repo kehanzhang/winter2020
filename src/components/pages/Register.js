@@ -40,7 +40,7 @@ export default function Register() {
 				<input id = 'reg-email' type = "email" placeholder = "email" onChange = {(e) => setEmail(e.target.value)}/>
 
 				<label htmlFor = 'reg-pass'>Password</label>
-				<input id = 'reg-pass-conf' type = "password" placeholder = "Password" onChange = {(e) => setPassword(e.target.value)}/>
+				<input id = 'reg-pass' type = "password" placeholder = "Password" onChange = {(e) => setPassword(e.target.value)}/>
 
 				<label htmlFor = 'reg-pass_conf'>Password Confirmation</label>
 				<input id = 'reg-pass-conf' type = "password" placeholder = "Confirm Password" onChange = {(e) => setPassword_conf(e.target.value)}/>

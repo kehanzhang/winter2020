@@ -1,5 +1,5 @@
-import React from 'react';
-import { useHistory } from 'react-dom';
+import React, {useState} from 'react';
+import { useHistory } from 'react-router-dom';
 import firebaseConfig from '../../firebase';
 
 export default function Register() {

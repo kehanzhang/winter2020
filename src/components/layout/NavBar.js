@@ -39,14 +39,9 @@ const NavBar = () => {
   return (
     <div>
       {currUser === null ? "not logged in" : "logged in"}
-      {currUser === null ? (
-        <>
-          <button onClick={e => register(e)}>Register</button>{" "}
-          <button onClick={e => login(e)}>Login</button>{" "}
-        </>
-      ) : (
+      {currUser !== null ? (
         <button onClick={e => logOut(e)}>LogOut</button>
-      )}
+      ) : null}
     </div>
   );
 };

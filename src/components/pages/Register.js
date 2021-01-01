@@ -1,7 +1,6 @@
-<<<<<<< HEAD
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { auth } from "../../firebase";
+import firebaseApp from "../../firebase";
 
 export default function Register() {
   const [currUser, setCurrUser] = useState(null);
@@ -18,7 +17,9 @@ export default function Register() {
     }
 
     try {
-      auth.createUserWithEmailAndPassword(email.value, password.value);
+      firebaseApp
+        .auth()
+        .createUserWithEmailAndPassword(email.value, password.value);
       setCurrUser(true);
     } catch (err) {
       console.log(err.message);
@@ -52,55 +53,4 @@ export default function Register() {
       </form>
     </>
   );
-=======
-import React, {useState} from 'react';
-import { useHistory } from 'react-router-dom';
-import firebaseApp from '../../firebase';
-
-export default function Register() {
-	const [currUser, setCurrUser] = useState(null);
-	const history = useHistory();
-
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		let {disp_name, email, password, password_conf} = e.target.elements;
-
-		//verify
-		if(password !== password_conf) {
-			console.log("passwords dont match")
-			return
-		}
-
-		try {
-			firebaseApp.auth().createUserWithEmailAndPassword(email.value, password.value);
-			setCurrUser(true);
-		} catch (err) {
-			console.log(err.message);
-		}
-		if (currUser) {
-			history.push('/');
-		}
-	}
-
-	return (
-		<>
-			<h2>Register</h2>
-			<form onSubmit = {handleSubmit}>
-				<label htmlFor = 'reg-name'>Name</label>
-				<input id = 'reg-name' type = "text" placeholder = "Display Name"/>
-
-				<label htmlFor = 'reg-email'>Email</label>
-				<input id = 'reg-email' type = "email" placeholder = "email"/>
-
-				<label htmlFor = 'reg-pass'>Password</label>
-				<input id = 'reg-pass-conf' type = "password" placeholder = "Password"/>
-
-				<label htmlFor = 'reg-pass_conf'>Password Confirmation</label>
-				<input id = 'reg-pass-conf' type = "password" placeholder = "Confirm Password"/>
-			
-				<button type = 'submit'>Register</button>
-			</form>
-		</>
-	)
->>>>>>> b4c7494b869b24e494e6d563722f4a1a49bb47b6
 }

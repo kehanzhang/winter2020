@@ -15,11 +15,11 @@ export default function Home() {
   };
 
   return ( 
-		<div className = "container">
-			<div>
+		<div>
+			<div className = 'button-container'>
 				<button className = "button" onClick={register}>Register</button>
 			</div>
-			<div>
+			<div className = 'button-container'>
 				<button className = "button" onClick={login}>Log In</button> 
 			</div>
 		</div>

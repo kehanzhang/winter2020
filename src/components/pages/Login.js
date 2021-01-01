@@ -25,7 +25,7 @@ export default function Register() {
 
 	return (
 		<>
-			<h2>Register</h2>
+			<h2>Log In</h2>
 			<form onSubmit = {handleSubmit}>
 				<label htmlFor = 'log-email'>Email</label>
 				<input id = 'log-email' type = "email" placeholder = "email" onChange = {(e) => setEmail(e.target.value)}/>

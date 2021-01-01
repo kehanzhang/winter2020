@@ -11,7 +11,6 @@ const App = () => {
   return (
     <AuthProvider>
       <Router>
-			<NavBar />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />

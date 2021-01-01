@@ -1,7 +1,7 @@
 import React, {useState, useContext} from 'react';
 import { useHistory } from 'react-router-dom';
 import firebaseApp from '../../firebase';
-import {AuthContext} from '../Auth'
+import {AuthContext} from '../context/Auth'
 
 export default function Register() {
 	const history = useHistory();

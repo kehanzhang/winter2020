@@ -1,9 +1,19 @@
-import React from 'react'
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Home from "./components/pages/Home";
+import Login from "./components/pages/Login";
+import Register from "./components/pages/Register";
 
-export default function App() {
-	return (
-		<div>
-			test
-		</div>
-	)
-}
+const App = () => {
+  return (
+		<Router>
+			<Switch>
+				<Route exact path="/" component={Home} />
+				<Route exact path="/login" component={Login} />
+				<Route exact path="/signup" component={Register} />
+			</Switch>
+		</Router>
+  );
+};
+
+export default App;

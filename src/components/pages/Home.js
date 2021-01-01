@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../Auth";
 import { useHistory } from "react-router-dom";
-import logo from '../assets/logo_small.png';
+import logo from '../assets/logo.png';
 
 export default function Home() {
   const { currUser } = useContext(AuthContext)
@@ -16,8 +16,8 @@ export default function Home() {
   };
 
   return ( 
-		<div>
-      <img src={logo} alt="Logo" />
+    <div align="center">
+      <img src={logo} alt="Logo" class="center"/>
 			<div className = 'button-container'>
 				<button className = "button" onClick={register}>Register</button>
 			</div>

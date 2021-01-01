@@ -14,3 +14,10 @@
 .button-container .button {
 	font-size: 23px;
 }
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%;
+}

@@ -1,32 +1,35 @@
 import React, { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import firebaseApp from "../../firebase";
 import { AuthContext } from "../Auth";
 
-export default function Register() {
-  const history = useHistory();
-
+export default function Login() {
+  const { currUser, setCurrUser } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     try {
-      firebaseApp.auth().signInWithWithEmailAndPassword(email, password);
+      await firebaseApp.auth().signInWithEmailAndPassword(email, password);
+      setCurrUser(email);
+      console.log("Signed In!");
+
+      return <Redirect to="/" />;
     } catch (err) {
       console.log(err.message);
     }
   };
-  const { currUser } = useContext(AuthContext);
+
   if (currUser) {
-    history.push("/");
+    <Redirect to="/" />;
   }
 
   return (
     <>
       <h2>Log In</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={e => handleSubmit(e)}>
         <label htmlFor="log-email">Email</label>
         <input
           id="log-email"

@@ -28,11 +28,11 @@ export default function Register() {
 		<>
 			<h2>Register</h2>
 			<form onSubmit = {handleSubmit}>
-				<label htmlFor = 'reg-email'>Email</label>
-				<input id = 'reg-email' type = "email" placeholder = "email" onChange = {(e) => setEmail(e.target.value)}/>
+				<label htmlFor = 'log-email'>Email</label>
+				<input id = 'log-email' type = "email" placeholder = "email" onChange = {(e) => setEmail(e.target.value)}/>
 
-				<label htmlFor = 'reg-pass'>Password</label>
-				<input id = 'reg-pass' type = "password" placeholder = "Password" onChange = {(e) => setPassword(e.target.value)}/>
+				<label htmlFor = 'log-pass'>Password</label>
+				<input id = 'log-pass' type = "password" placeholder = "Password" onChange = {(e) => setPassword(e.target.value)}/>
 
 				<button type = 'submit'>Log In</button>
 			</form>

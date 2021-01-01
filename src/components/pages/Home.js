@@ -14,10 +14,14 @@ export default function Home() {
     history.push('/login')
   };
 
-  return (
-	  
+  return ( 
 		<div>
-			<> <button onClick={register}>Register</button> <button onClick={login}>Log In</button> </>
+			<div className = 'button-container'>
+				<button className = "button" onClick={register}>Register</button>
+			</div>
+			<div className = 'button-container'>
+				<button className = "button" onClick={login}>Log In</button> 
+			</div>
 		</div>
 	);
 }

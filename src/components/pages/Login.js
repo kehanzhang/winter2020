@@ -6,8 +6,8 @@ import { AuthContext } from "../Auth";
 export default function Login() {
   const { currUser, setCurrUser } = useContext(AuthContext);
   const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const history = useHistory();
+  const [password, setPassword] = useState("");
+  const history = useHistory();
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -18,14 +18,12 @@ export default function Login() {
     } catch (err) {
       console.log(err.message);
     } finally {
-			if (currUser) {
-				console.log("Signed In!");
-				history.push('/')
-			}
-		}
+      if (currUser !== null) {
+        console.log("Signed In!");
+        history.push("/");
+      }
+    }
   };
-
-  
 
   return (
     <>

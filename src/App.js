@@ -6,6 +6,7 @@ import Register from "./components/pages/Register";
 import Dashboard from "./components/pages/Dashboard";
 import NavBar from "./components/layout/NavBar";
 import { AuthProvider } from "./components/Auth";
+import "./App.css"
 
 const App = () => {
   return (

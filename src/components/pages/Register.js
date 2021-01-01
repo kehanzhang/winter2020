@@ -26,14 +26,14 @@ export default function Register() {
       setCurrUser({
 				email: email
 			});
-    } catch (err) {
-      console.log(err.message);
-    } finally {
-			if (currUser) {
-				console.log('hello')
+
+			if (currUser !== null) {
+				console.log("Signed In!");
 				history.push('/')
 			}
-		}
+    } catch (err) {
+      console.log(err.message);
+    } 
   };
 
   

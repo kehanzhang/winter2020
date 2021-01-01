@@ -29,7 +29,7 @@ const NavBar = () => {
 
   return (
     <div>
-      {currUser === null ? "not logged in" : "logged in"}
+      {currUser === null ? "not logged in" : `logged in, hello ${currUser.email}`}
       {currUser !== null ? 
         <button onClick={e => logOut(e)}>Log Out</button>
        : <> <button onClick={register}>Register</button> <button onClick={login}>Log In</button> </>}

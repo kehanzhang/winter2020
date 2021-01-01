@@ -20,11 +20,11 @@ export default function Home() {
   return ( 
     <div align="center">
       <img src={logo} alt="Logo" class="center"/>
-			<div className = 'button-container'>
-				<button className = "button" onClick={register}>Register</button>
+      <div className = 'button-container'>
+				<button className = "loginButton" onClick={login}>Log In</button> 
 			</div>
 			<div className = 'button-container'>
-				<button className = "button" onClick={login}>Log In</button> 
+				<button className = "registerButton" onClick={register}>Register</button>
 			</div>
 		</div>
 	);

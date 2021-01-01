@@ -1,24 +1,32 @@
 import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { AuthContext } from "../Auth";
 import firebaseApp from "../../firebase";
 
 const NavBar = props => {
   const { currUser } = useContext(AuthContext);
-  const history = useHistory();
 
-  const logOut = e => {
+  const logOut = async e => {
     e.preventDefault();
 
-    firebaseApp
-      .auth()
-      .signOut()
-      .then(() => {
-        history.push("/login");
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    // firebaseApp
+    //   .auth()
+    //   .signOut()
+    //   .then(() => {
+    //     history.push("/login");
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+
+    try {
+      await firebaseApp.auth().signOut();
+      console.log("Signed Out!");
+
+      return <Redirect to="/login" />;
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   return (

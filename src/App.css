@@ -11,8 +11,14 @@
 	margin: 50px auto;
 }
 
-.button-container .button {
-	font-size: 23px;
+.button {
+  font-size: 23px;
+  color: #03989E;
+  font-weight: 450;
+  background-color: #ffffff;
+  border-radius: 15px;
+  width: 250px;
+  height: 50px
 }
 
 .center {

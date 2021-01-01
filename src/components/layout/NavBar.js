@@ -1,36 +1,27 @@
 import React, { useContext } from "react";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { AuthContext } from "../Auth";
 import firebaseApp from "../../firebase";
 
 const NavBar = () => {
   const { currUser, setCurrUser } = useContext(AuthContext);
+	const history = useHistory();
 
   const register = () => {
-    return <Redirect to="/register" />;
+    history.push('/register')
   };
   const login = () => {
-    return <Redirect to="/login" />;
+    history.push('/login')
   };
   const logOut = async e => {
-    e.preventDefault();
-
-    // firebaseApp
-    //   .auth()
-    //   .signOut()
-    //   .then(() => {
-    //     history.push("/login");
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
-
+		e.preventDefault();
+		
     try {
       await firebaseApp.auth().signOut();
       console.log("Signed Out!");
       setCurrUser(null);
 
-      return <Redirect to="/login" />;
+      history.push('/')
     } catch (err) {
       console.log(err.message);
     }
@@ -39,9 +30,9 @@ const NavBar = () => {
   return (
     <div>
       {currUser === null ? "not logged in" : "logged in"}
-      {currUser !== null ? (
-        <button onClick={e => logOut(e)}>LogOut</button>
-      ) : null}
+      {currUser !== null ? 
+        <button onClick={e => logOut(e)}>Log Out</button>
+       : <> <button onClick={register}>Register</button> <button onClick={login}>Log In</button> </>}
     </div>
   );
 };

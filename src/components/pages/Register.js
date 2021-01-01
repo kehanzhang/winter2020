@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import firebaseApp from "../../firebase";
 import { AuthContext } from "../Auth";
 
@@ -11,7 +11,9 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [password_conf, setPassword_conf] = useState("");
 
-  const handleSubmit = async e => {
+	const history = useHistory();
+
+	const handleSubmit = async e => {
     e.preventDefault();
     //verify
     if (password !== password_conf) {
@@ -24,16 +26,17 @@ export default function Register() {
       setCurrUser({
 				email: email
 			});
-			console.log('hello')
-      return <Redirect to="/" />;
     } catch (err) {
       console.log(err.message);
-    }
+    } finally {
+			if (currUser) {
+				console.log('hello')
+				history.push('/')
+			}
+		}
   };
 
-  if (currUser) {
-    return <Redirect to="/" />;
-  }
+  
 
   return (
     <>

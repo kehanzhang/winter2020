@@ -9,8 +9,8 @@ import { AuthProvider } from "./components/Auth";
 const App = () => {
   return (
     <AuthProvider>
-      <NavBar />
       <Router>
+			<NavBar />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />

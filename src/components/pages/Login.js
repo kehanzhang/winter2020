@@ -1,12 +1,13 @@
 import React, { useState, useContext } from "react";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import firebaseApp from "../../firebase";
 import { AuthContext } from "../Auth";
 
 export default function Login() {
   const { currUser, setCurrUser } = useContext(AuthContext);
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+	const [password, setPassword] = useState("");
+	const history = useHistory();
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -14,17 +15,17 @@ export default function Login() {
     try {
       await firebaseApp.auth().signInWithEmailAndPassword(email, password);
       setCurrUser(email);
-      console.log("Signed In!");
-
-      return <Redirect to="/" />;
     } catch (err) {
       console.log(err.message);
-    }
+    } finally {
+			if (currUser) {
+				console.log("Signed In!");
+				history.push('/')
+			}
+		}
   };
 
-  if (currUser) {
-    return <Redirect to="/" />;
-  }
+  
 
   return (
     <>

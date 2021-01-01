@@ -21,7 +21,10 @@ export default function Register() {
     try {
       await firebaseApp.auth().createUserWithEmailAndPassword(email, password);
 
-      setCurrUser(email);
+      setCurrUser({
+				email: email
+			});
+			console.log('hello')
       return <Redirect to="/" />;
     } catch (err) {
       console.log(err.message);

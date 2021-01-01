@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import firebaseApp from "../../firebase";
+import firebase from "../../firebase";
 import { AuthContext } from "../Auth";
 
 export default function Login() {
@@ -13,7 +13,7 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      await firebaseApp.auth().signInWithEmailAndPassword(email, password);
+      await firebase.auth().signInWithEmailAndPassword(email, password);
       setCurrUser({
 				email: email
 			});

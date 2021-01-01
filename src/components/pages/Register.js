@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import firebaseApp from "../../firebase";
+import firebase from "../../firebase";
 import { AuthContext } from "../Auth";
 
 export default function Register() {
@@ -21,7 +21,7 @@ export default function Register() {
       return;
     }
     try {
-      await firebaseApp.auth().createUserWithEmailAndPassword(email, password);
+      await firebase.auth().createUserWithEmailAndPassword(email, password);
 
       setCurrUser({
 				email: email
@@ -31,10 +31,8 @@ export default function Register() {
     } catch (err) {
       console.log(err.message);
     } 
-  };
-
-  
-
+	};
+	
   return (
     <>
       <h2>Register</h2>

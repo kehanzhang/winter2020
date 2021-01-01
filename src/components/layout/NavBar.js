@@ -4,7 +4,7 @@ import { AuthContext } from "../Auth";
 import firebaseApp from "../../firebase";
 
 const NavBar = props => {
-  const { currUser } = useContext(AuthContext);
+  const { currUser, setCurrUser } = useContext(AuthContext);
 
   const logOut = async e => {
     e.preventDefault();
@@ -22,6 +22,7 @@ const NavBar = props => {
     try {
       await firebaseApp.auth().signOut();
       console.log("Signed Out!");
+      setCurrUser(null);
 
       return <Redirect to="/login" />;
     } catch (err) {

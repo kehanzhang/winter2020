@@ -23,7 +23,7 @@ export default function Login() {
   };
 
   if (currUser) {
-    <Redirect to="/" />;
+    return <Redirect to="/" />;
   }
 
   return (

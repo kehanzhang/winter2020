@@ -17,11 +17,8 @@ export default function Login() {
       setCurrUser({
 				email: email
 			});
+			history.push('/')
 
-			if (currUser !== null) {
-				console.log("Signed In!");
-				history.push('/')
-			}
     } catch (err) {
       console.log(err.message);
     } 

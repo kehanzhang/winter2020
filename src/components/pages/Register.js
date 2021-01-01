@@ -26,11 +26,8 @@ export default function Register() {
       setCurrUser({
 				email: email
 			});
-
-			if (currUser !== null) {
-				console.log("Signed In!");
-				history.push('/')
-			}
+			history.push('/')
+			
     } catch (err) {
       console.log(err.message);
     } 

@@ -9,7 +9,7 @@ export default function Login() {
 	const [password, setPassword] = useState("");
 	const history = useHistory();
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -17,15 +17,13 @@ export default function Login() {
       setCurrUser({
 				email: email
 			});
-			history.push('/')
+			history.push('/dashboard')
 
     } catch (err) {
       console.log(err.message);
     } 
   };
 	
-  
-
   return (
     <>
       <h2>Log In</h2>

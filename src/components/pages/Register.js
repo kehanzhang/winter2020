@@ -26,8 +26,8 @@ export default function Register() {
       setCurrUser({
 				email: email
 			});
-			history.push('/')
-			
+			history.push('/dashboard')
+
     } catch (err) {
       console.log(err.message);
     } 

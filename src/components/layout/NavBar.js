@@ -12,7 +12,7 @@ const NavBar = () => {
 	const login = () => {
 		return <Redirect to ='/login'/>
 	}
-  const logOut = async e => {
+  const logOut = async () => {
     e.preventDefault();
 
     // firebaseApp
@@ -39,8 +39,8 @@ const NavBar = () => {
     <div>
 			{currUser === null ? 'not logged in' : 'logged in'}
       {currUser === null ? <>
-			<button onClick={e => register(e)}>Register</button> <button onClick={e => login(e)}>Login</button> </>:
-			<button onClick={e => logOut(e)}>LogOut</button>}
+			<button onClick={register}>Register</button> <button onClick={login}>Login</button> </>:
+			<button onClick={logOut}>LogOut</button>}
     </div>
   );
 };

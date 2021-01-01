@@ -14,17 +14,19 @@ export default function Login() {
 
     try {
       await firebaseApp.auth().signInWithEmailAndPassword(email, password);
-      setCurrUser(email);
-    } catch (err) {
-      console.log(err.message);
-    } finally {
-			if (currUser) {
+      setCurrUser({
+				email: email
+			});
+
+			if (currUser !== null) {
 				console.log("Signed In!");
 				history.push('/')
 			}
-		}
+    } catch (err) {
+      console.log(err.message);
+    } 
   };
-
+	
   
 
   return (

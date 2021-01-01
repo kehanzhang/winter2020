@@ -4,7 +4,6 @@ import firebaseApp from '../../firebase';
 import {AuthContext} from '../Auth'
 
 export default function Register() {
-	const [currUser, setCurrUser] = useState(null);
 	const history = useHistory();
 
 	const [email, setEmail] = useState('')
@@ -18,10 +17,10 @@ export default function Register() {
 		} catch (err) {
 			console.log(err.message);
 		}
-		const {currUser} = useContext(AuthContext)
-		if (currUser) {
-			history.push('/');
-		}
+	}
+	const {currUser} = useContext(AuthContext)
+	if (currUser) {
+		history.push('/');
 	}
 
 	return (

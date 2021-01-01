@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [currUser, setCurrUser] = useState(null);
   useEffect(() => {
     firebaseApp.auth().onAuthStateChanged((user) => {
-      setCurrentUser(user);
+      setCurrUser(user);
       setLoading(false);
     });
   }, []);
@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     return <p>Loading...</p>;
   }
   return (
-    <AuthContext.Provider value={{ currentUser }}>
+    <AuthContext.Provider value={{ currUser }}>
       {children}
     </AuthContext.Provider>
   );

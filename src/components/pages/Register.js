@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { useHistory } from 'react-router-dom';
-import firebaseConfig from '../../firebase';
+import firebaseApp from '../../firebase';
 
 export default function Register() {
 	const [currUser, setCurrUser] = useState(null);
@@ -17,7 +17,7 @@ export default function Register() {
 		}
 
 		try {
-			firebaseConfig.auth().createUserWithEmailAndPassword(email.value, password.value);
+			firebaseApp.auth().createUserWithEmailAndPassword(email.value, password.value);
 			setCurrUser(true);
 		} catch (err) {
 			console.log(err.message);

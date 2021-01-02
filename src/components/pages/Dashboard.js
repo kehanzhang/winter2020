@@ -1,9 +1,10 @@
 import React, { useState, useContext } from "react";
-
-import Chatbox from "../layout/Chatbox";
-import firebase, { db } from "../../firebase";
+import firebase, { auth, db } from "../../firebase";
 import { AuthContext } from "../Auth";
 import { useHistory } from "react-router-dom";
+
+import Chatbox from "../layout/Chatbox";
+
 
 export default function Dashboard() {
 	const [message, setMessage] = useState('');
@@ -33,9 +34,9 @@ export default function Dashboard() {
     try {
       await firebase.auth().signOut();
       console.log("Signed Out!");
-      setCurrUser(null);
-
-      history.push("/");
+      //setCurrUser(null);
+			
+			if(currUser === null)	history.push("/");
     } catch (err) {
       console.log(err.message);
     }

@@ -13,11 +13,11 @@ export default function Dashboard() {
 	const [activeChat, setActiveChat] = useState(null)
 	
 	if (currUser=== null)	history.push('/')
-	//.where('members', 'array-contains', currUser.uid)
 
 	const helper = (data) => {
 		setChats(data);
 	}
+
 	useEffect(() => {
 		const unsubscribe = db
 			.collection("chat-groups")					
@@ -28,9 +28,10 @@ export default function Dashboard() {
 				helper(data)
 			})
 		
-		return () => unsubscribe()
+		return unsubscribe;
 	},[])
 
+	console.log(chats)
 	const buttonlist = chats.map((chatid) => {
 		return (
 			<li key = {chatid}>
@@ -38,6 +39,7 @@ export default function Dashboard() {
 			</li>
 		)
 	})
+
 	const logout = async (e) => {
 		e.preventDefault();
 		

@@ -1,21 +1,41 @@
-import React, { useEffect, useState } from 'react'
-import { db } from "../../firebase";
+import React, { useEffect, useContext, useState } from 'react'
+import firebase, { db } from "../../firebase";
+import { AuthContext } from "../Auth";
 
 export default function Chatbox({chat}) {
 	const {id, chatName} = chat
 	const [messages, setMessages] = useState([])
-	const [text, setText] = useState("");
-	
+	const [formText, setFormText] = useState("");
+	const {currUser} = useContext(AuthContext);
+	//const {ref, setRef} = useState("");
+
+
+	const newMessage = {
+		sentAt: firebase.firestore.FieldValue.serverTimestamp(),
+		sentBy: currUser.uid,
+		text: formText,
+	};
+
 	const sendMessage = (e) => {
 		e.preventDefault()
-		if (text !== '') {
+		if (formText !== '') {
 			//push to firebase
-			console.log(text);
+			console.log(formText);
+			db.collection('chat-messages').doc(id).collection('messages').add({})
+			.then(function(docRef) {
+				var messageDocRef = db.collection('chat-messages').doc(id).collection('messages').doc(docRef.id)
+				console.log("Document written with ID: ", docRef.id);
+				messageDocRef.set(newMessage);
+			});
 
-			setText('');
+
+			setFormText('');
 		}
 		
 	}
+
+
+
 
 	useEffect(() => {
 		const unsubscribe = db.collection("chat-messages").doc(id).collection("messages").onSnapshot((snapshot) => {
@@ -40,10 +60,19 @@ export default function Chatbox({chat}) {
 				<li>{`active chat is ${chatName}`}</li>
 				{messageList}
 			</ul>
+
+
 			<form onSubmit = {sendMessage}>
-				<input type = 'text' value = {text} onChange = {(e) => setText(e.target.value)} placeholder = "send a message"/>
+				<input 
+					type = 'text' 
+					value = {formText} 
+					onChange = {(e) => setFormText(e.target.value)} 
+					placeholder = "send a message"
+				/>
 				<button type = "submit">Send</button>
 			</form>
+
+
 		</div>
 	)
 }

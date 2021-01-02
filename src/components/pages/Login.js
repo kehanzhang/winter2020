@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import firebase from "../../firebase";
 import { AuthContext } from "../Auth";
+import logo from '../assets/logo.png';
 
 export default function Login() {
   const { currUser, setCurrUser } = useContext(AuthContext);
@@ -26,26 +27,31 @@ export default function Login() {
 	
   return (
     <>
-      <h2>Log In</h2>
+      <div align="center">
+      <img src={logo} alt="Logo" class="center"/>
       <form onSubmit={e => handleSubmit(e)}>
-        <label htmlFor="log-email">Email</label>
-        <input
-          id="log-email"
-          type="email"
-          placeholder="email"
-          onChange={e => setEmail(e.target.value)}
-        />
+        <div class="customTxt">
+          <label htmlFor="log-email">Email</label>
+          <input 
 
-        <label htmlFor="log-pass">Password</label>
-        <input
-          id="log-pass"
-          type="password"
-          placeholder="Password"
-          onChange={e => setPassword(e.target.value)}
-        />
+            id="log-email"
+            type="email"
+            placeholder="email"
+            onChange={e => setEmail(e.target.value)}
+          />
 
-        <button type="submit">Log In</button>
+          <label htmlFor="log-pass">Password</label>
+          <input
+            id="log-pass"
+            type="password"
+            placeholder="Password"
+            onChange={e => setPassword(e.target.value)}
+          />
+        </div>
+
+        <button className='loginButton' type="submit">Log In</button>
       </form>
+      </div>
     </>
   );
 }

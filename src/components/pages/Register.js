@@ -14,6 +14,21 @@ const authListener = () => {
   })
 }
 
+/*
+  firebase.catch(err =>{
+    switch(err.code ){
+      case "auth/invalid-email": 
+      case "auth/user-disabled":
+      case "auth/user-not-found":
+        SetEmailError(err.message);
+        break;
+      case "auth/wrong-password":
+        setPasswordError(err.message);
+        break;
+    }
+  }) 
+*/
+
 useEffect(() => {
   authListener();
 }, [])
@@ -71,22 +86,6 @@ export default function Register() {
     } 
   };
   
-
-/*
-  firebase.catch(err =>{
-    switch(err.code ){
-      case "auth/invalid-email": 
-      case "auth/user-disabled":
-      case "auth/user-not-found":
-        SetEmailError(err.message);
-        break;
-      case "auth/wrong-password":
-        setPasswordError(err.message);
-        break;
-    }
-  }) 
-*/
-
   return (
     <>
       <h2>Register</h2>

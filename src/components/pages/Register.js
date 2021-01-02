@@ -4,7 +4,7 @@ import firebase from "../../firebase";
 import { AuthContext } from "../Auth";
 
 export default function Register() {
-  const { currUser, setCurrUser } = useContext(AuthContext);
+  const {setCurrUser } = useContext(AuthContext);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -21,11 +21,10 @@ export default function Register() {
       return;
     }
     try {
-      await firebase.auth().createUserWithEmailAndPassword(email, password);
+      const regRes = await firebase.auth().createUserWithEmailAndPassword(email, password);
+			const {user} = regRes;
+			setCurrUser(user);
 
-      setCurrUser({
-				email: email
-			});
 			history.push('/dashboard')
 
     } catch (err) {

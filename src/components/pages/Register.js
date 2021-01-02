@@ -92,52 +92,63 @@ export default function Register() {
       <div align="center">
       <img src={logo} alt="Logo" class="center"/>
       <form onSubmit={handleSubmit}>
-      <div class="customTxt">
-        <label htmlFor="reg-name">Name</label>
-      </div>
-        <input
-          class="inputFields"
-          id="reg-name"
-          type="text"
-          placeholder="Display Name"
-          onChange={e => setName(e.target.value)}
-        />
+      <div class="row">
+        <div class="columnLeft">
+          <div class="customTxt">
+            <label htmlFor="reg-name">Name</label>
+          </div>
+            <input
+              class="inputFields"
+              id="reg-name"
+              type="text"
+              placeholder="Display Name"
+              onChange={e => setName(e.target.value)}
+            />
+        </div>
 
-      <div class="customTxt">
-        <label htmlFor="reg-email">Email</label>
-      </div>
+        <div class="columnRight">
+          <div class="customTxt">
+            <label htmlFor="reg-email">Email</label>
+          </div>
 
-        <input
-          class="inputFields"
-          id="reg-email"
-          type="email"
-          placeholder="Email"
-          onChange={e => setEmail(e.target.value)}
-        />
-
-      <div class="customTxt">
-        <label htmlFor="reg-pass">Password</label>
-      </div>
-
-        <input
-          class="inputFields"
-          id="reg-pass"
-          type="password"
-          placeholder="Password"
-          onChange={e => setPassword(e.target.value)}
-        />
-
-      <div class="customTxt">
-        <label htmlFor="reg-pass_conf">Password Confirmation</label>
+            <input
+              class="inputFields"
+              id="reg-email"
+              type="email"
+              placeholder="Email"
+              onChange={e => setEmail(e.target.value)}
+            />
+        </div>
       </div>
 
-        <input
-          class="inputFields"
-          id="reg-pass-conf"
-          type="password"
-          placeholder="Confirm Password"
-          onChange={e => setPassword_conf(e.target.value)}
-        />
+      <div class="row">
+        <div class="columnLeft">
+          <div class="customTxt">
+            <label htmlFor="reg-pass">Password</label>
+          </div>
+
+            <input
+              class="inputFields"
+              id="reg-pass"
+              type="password"
+              placeholder="Password"
+              onChange={e => setPassword(e.target.value)}
+            />
+        </div>
+        <div class="columnRight">
+          <div class="customTxt">
+            <label htmlFor="reg-pass_conf">Password Confirmation</label>
+          </div>
+
+            <input
+              class="inputFields"
+              id="reg-pass-conf"
+              type="password"
+              placeholder="Confirm Password"
+              onChange={e => setPassword_conf(e.target.value)}
+            />
+        </div>
+      </div>
 
         <div className = 'button-container'>
         <button className='loginButton' type="submit">Register</button>

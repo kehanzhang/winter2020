@@ -1,43 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import firebase, { auth, db } from "../../firebase";
 
-export default function Chatbox({id}) {
+export default function Chatbox({chat}) {
+	const {id, chatName} = chat
 	const [messages, setMessages] = useState([])
 
 	
+	useEffect(() => {
+		const unsubscribe = db.collection("chat-messages").doc(id).collection("messages").onSnapshot((snapshot) => {
+			let data = snapshot.docs.map(doc => doc.data());
+			setMessages(data)
+		})
+		return unsubscribe;
+	}, [id])
 
-	// const getMessages = async () => {
-	// 	console.log(ids[0])
-	// 	let desired_id = null;
-	// 	try {
-	// 		const query = await db
-	// 			.collection("chat-messages")
-	// 			.get();
-
-	// 		query.forEach(doc => {
-	// 			if(doc.id === ids[0]) {
-	// 				desired_id = doc.id
-	// 			}
-	// 		});
-	// 		console.log(desired_id);
-
-	// 		const query2 = await db.collection(`chat-messages/${desired_id}/messages`).get();
-
-	// 		query2.forEach(doc2 => {
-	// 			console.log(doc2.data())
-	// 		})
-	// 	} catch (err) {
-	// 		console.log(err.message);
-	// 	}
-	// }
-	
+	const messageList = messages.map(message => {
+		return (
+			<li key = {message.id}>{message.text}</li>
+		)
+	})
 
 
 	return (
 		<div>
 			<h3>Message list</h3>
 			<ul>
-				<li>{`active chat is ${id}`}</li>
+				<li>{`active chat is ${chatName}`}</li>
+				{messageList}
 			</ul>
 		</div>
 	)

@@ -16,7 +16,7 @@ export default function MainContainer() {
     const unsubscribe = db.collection("chat-groups").onSnapshot(snapshot => {
       let data = snapshot.docs
         .filter(doc => doc.data().members.includes(currUser.uid))
-				.map(doc => doc.id);
+				.map(doc => doc.data());
 			setChats(data);	
     });
 
@@ -25,8 +25,8 @@ export default function MainContainer() {
 
   const renderChats = chats.slice();				//fixes infinite render errors
   const buttonlist = renderChats.map(chat => (
-    <li key={chat}>
-      <button onClick={() => setActiveChat(chat)}>{chat}</button>
+    <li key={chat.id}>
+      <button onClick={() => setActiveChat(chat)}>{chat.chatName}</button>
     </li>
   ));
 
@@ -47,7 +47,7 @@ export default function MainContainer() {
       <div>
         {activeChat === null
           ? "no active chat"
-          : <Chatbox id = {activeChat}/>}
+          : <Chatbox chat = {activeChat}/>}
       </div>
 		</div>
 	)

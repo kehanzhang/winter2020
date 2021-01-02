@@ -18,15 +18,12 @@ export default function Login() {
 			const { user } = loginRes
 			setCurrUser(user)
 			
-			// setCurrUser({
-      //   email: email
-      // });
       history.push("/dashboard");
     } catch (err) {
       console.log(err.message);
     }
-  };
-
+	};
+	
   return (
     <div align="center">
       <img

@@ -4,7 +4,7 @@ import { AuthContext } from "../Auth";
 import { useHistory } from "react-router-dom";
 
 import Chatbox from "../layout/Chatbox";
-import { act } from "react-dom/test-utils";
+import MainContainer from "../layout/MainContainer";
 
 export default function Dashboard() {
   const { currUser, setCurrUser } = useContext(AuthContext);
@@ -14,22 +14,18 @@ export default function Dashboard() {
 
   if (currUser === null) history.push("/");
 
-  const helper = data => {
-    setChats(data);
-  };
-
   useEffect(() => {
     const unsubscribe = db.collection("chat-groups").onSnapshot(snapshot => {
       let data = snapshot.docs
         .filter(doc => doc.data().members.includes(currUser.uid))
-        .map(doc => doc.id);
-      helper(data);
+				.map(doc => doc.id);
+			setChats(data);	
     });
 
     return unsubscribe;
   }, []);
 
-  const renderChats = chats.slice();
+  const renderChats = chats.slice();				//fixes infinite render errors
   const buttonlist = renderChats.map(chat => (
     <li key={chat}>
       <button onClick={() => setActiveChat(chat)}>{chat}</button>
@@ -58,7 +54,6 @@ export default function Dashboard() {
       <h1>Dashboard</h1>
       <div>
         <button onClick={logout}>Log Out</button>
-        <button onClick={() => console.log(chats)}>Print</button>
         <button onClick={profile}>TO THE PROFILES</button>
       </div>
       <div>

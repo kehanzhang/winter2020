@@ -26,27 +26,26 @@ export default function Login() {
   };
 
   return (
-    <>
-      <div align="center">
-      <img onClick = {() => {history.push('/')}} src={logo} alt="Logo" class="center"/>
+		<div align="center">
+      <img onClick = {() => {history.push('/')}} src={logo} alt="Logo" className="center"/>
       <form onSubmit={e => handleSubmit(e)}>
-        <div class="customTxt">
+        <div className="customTxt">
           <label htmlFor="log-email">Email</label>
         </div>
           <input 
-            class="inputFields"
+            className="inputFields"
             id="log-email"
             type="email"
             placeholder="Email"
             onChange={e => setEmail(e.target.value)}
           />
 
-        <div class="customTxt">
+        <div className="customTxt">
           <label htmlFor="log-pass">Password</label>
         </div>
 
           <input
-            class="inputFields"
+            className="inputFields"
             id="log-pass"
             type="password"
             placeholder="Password"
@@ -57,7 +56,6 @@ export default function Login() {
         <button className='loginButton' type="submit">Log In</button>
         </div>
       </form>
-      </div>
-    </>
+		</div>
   );
 }

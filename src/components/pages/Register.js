@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import firebase from "../../firebase";
 import { AuthContext } from "../Auth";
+import logo from '../assets/logo.png';
 
 // const authListener = () => {
 //   firebase.auth().onAuthStateChanged((currUser) => {
@@ -88,42 +89,61 @@ export default function Register() {
   
   return (
     <>
-      <h2>Register</h2>
+      <div align="center">
+      <img src={logo} alt="Logo" class="center"/>
       <form onSubmit={handleSubmit}>
+      <div class="customTxt">
         <label htmlFor="reg-name">Name</label>
+      </div>
         <input
+          class="inputFields"
           id="reg-name"
           type="text"
           placeholder="Display Name"
           onChange={e => setName(e.target.value)}
         />
 
+      <div class="customTxt">
         <label htmlFor="reg-email">Email</label>
+      </div>
+
         <input
+          class="inputFields"
           id="reg-email"
           type="email"
-          placeholder="email"
+          placeholder="Email"
           onChange={e => setEmail(e.target.value)}
         />
 
+      <div class="customTxt">
         <label htmlFor="reg-pass">Password</label>
+      </div>
+
         <input
+          class="inputFields"
           id="reg-pass"
           type="password"
           placeholder="Password"
           onChange={e => setPassword(e.target.value)}
         />
 
+      <div class="customTxt">
         <label htmlFor="reg-pass_conf">Password Confirmation</label>
+      </div>
+
         <input
+          class="inputFields"
           id="reg-pass-conf"
           type="password"
           placeholder="Confirm Password"
           onChange={e => setPassword_conf(e.target.value)}
         />
 
-        <button type="submit">Register</button>
+        <div className = 'button-container'>
+        <button className='loginButton' type="submit">Register</button>
+        </div>
       </form>
+      </div>
     </>
   );
 }

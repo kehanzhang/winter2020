@@ -10,6 +10,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const history = useHistory();
 
+	
   const handleSubmit = async e => {
     e.preventDefault();
 
@@ -27,7 +28,7 @@ export default function Login() {
   return (
     <>
       <div align="center">
-      <img src={logo} alt="Logo" class="center"/>
+      <img onClick = {() => {history.push('/')}} src={logo} alt="Logo" class="center"/>
       <form onSubmit={e => handleSubmit(e)}>
         <div class="customTxt">
           <label htmlFor="log-email">Email</label>

@@ -7,8 +7,6 @@ export default function Chatbox({chat}) {
 	const [messages, setMessages] = useState([])
 	const [formText, setFormText] = useState("");
 	const {currUser} = useContext(AuthContext);
-	//const {ref, setRef} = useState("");
-
 
 	const newMessage = {
 		sentAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -27,15 +25,10 @@ export default function Chatbox({chat}) {
 				console.log("Document written with ID: ", docRef.id);
 				messageDocRef.set(newMessage);
 			});
-
-
+			
 			setFormText('');
 		}
-		
 	}
-
-
-
 
 	useEffect(() => {
 		const unsubscribe = db.collection("chat-messages").doc(id).collection("messages").onSnapshot((snapshot) => {

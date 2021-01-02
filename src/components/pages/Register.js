@@ -90,15 +90,15 @@ export default function Register() {
   return (
     <>
       <div align="center">
-      <img src={logo} alt="Logo" class="center"/>
+      <img onClick = {() => {history.push('/')}} src={logo} alt="Logo" className="center"/>
       <form onSubmit={handleSubmit}>
-      <div class="row">
-        <div class="columnLeft">
-          <div class="customTxt">
+      <div className="row">
+        <div className="columnLeft">
+          <div className="customTxt">
             <label htmlFor="reg-name">Name</label>
           </div>
             <input
-              class="inputFields"
+              className="inputFields"
               id="reg-name"
               type="text"
               placeholder="Display Name"
@@ -106,13 +106,13 @@ export default function Register() {
             />
         </div>
 
-        <div class="columnRight">
-          <div class="customTxt">
+        <div className="columnRight">
+          <div className="customTxt">
             <label htmlFor="reg-email">Email</label>
           </div>
 
             <input
-              class="inputFields"
+              className="inputFields"
               id="reg-email"
               type="email"
               placeholder="Email"
@@ -121,27 +121,27 @@ export default function Register() {
         </div>
       </div>
 
-      <div class="row">
-        <div class="columnLeft">
-          <div class="customTxt">
+      <div className="row">
+        <div className="columnLeft">
+          <div className="customTxt">
             <label htmlFor="reg-pass">Password</label>
           </div>
 
             <input
-              class="inputFields"
+              className="inputFields"
               id="reg-pass"
               type="password"
               placeholder="Password"
               onChange={e => setPassword(e.target.value)}
             />
         </div>
-        <div class="columnRight">
-          <div class="customTxt">
+        <div className="columnRight">
+          <div className="customTxt">
             <label htmlFor="reg-pass_conf">Password Confirmation</label>
           </div>
 
             <input
-              class="inputFields"
+              className="inputFields"
               id="reg-pass-conf"
               type="password"
               placeholder="Confirm Password"

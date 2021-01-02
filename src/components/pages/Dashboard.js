@@ -14,23 +14,21 @@ export default function Dashboard() {
 	
 	if (currUser=== null)	history.push('/')
 	//.where('members', 'array-contains', currUser.uid)
-	useEffect(() => {
-		const getChats = async () => {
-			try {
-				await db
-					.collection("chat-groups")					
-					.onSnapshot((snapshot) => {
-						let data = snapshot.docs.filter((doc) => 
-							doc.data().members.includes(currUser.uid)
-						).map((doc) => doc.id)
-						setChats(data)
-					})
 
-			} catch (err) {
-				console.log("Error getting documents: ", err);
-			}
-		}
-		getChats()
+	const helper = (data) => {
+		setChats(data);
+	}
+	useEffect(() => {
+		const unsubscribe = db
+			.collection("chat-groups")					
+			.onSnapshot((snapshot) => {
+				let data = snapshot.docs.filter((doc) => 
+					doc.data().members.includes(currUser.uid)
+				).map((doc) => doc.id)
+				helper(data)
+			})
+		
+		return () => unsubscribe()
 	},[])
 
 	const buttonlist = chats.map((chatid) => {

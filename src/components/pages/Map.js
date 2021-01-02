@@ -15,13 +15,35 @@ const Map = () => {
   };
 
   const [userLocation, setUserLocation] = useState({ lat: 0, lng: 0 });
+  const [othersLocations, setOthersLocations] = useState([]);
   const [loading, setLoading] = useState("true");
+
+  const getOthersLocations = async () => {
+    let locArr = [];
+
+    const query = await db.collection("profiles").get();
+
+    query.forEach(doc => {
+      console.log(
+        doc.data().location.latitude + " " + doc.data().location.longitude
+      );
+
+      locArr.push({
+        lat: doc.data().location.latitude,
+        lng: doc.data().location.longitude
+      });
+    });
+
+    setOthersLocations(locArr);
+    console.log(locArr);
+    setLoading(false);
+  };
 
   useEffect(() => {
     if (navigator.geolocation) console.log("it exists");
 
     navigator.geolocation.getCurrentPosition(
-      pos => {
+      async pos => {
         setUserLocation({
           lat: pos.coords.latitude,
           lng: pos.coords.longitude
@@ -29,7 +51,7 @@ const Map = () => {
         console.log(pos.coords.latitude);
         console.log(pos.coords.longitude);
 
-        setLoading(false);
+        await getOthersLocations();
       },
       err => {
         console.log(err.message);
@@ -46,6 +68,11 @@ const Map = () => {
 
   if (loading) return <div>Loading...</div>;
 
+  const allLocations = [userLocation, ...othersLocations];
+  const markers = allLocations.map(loc => {
+    return <AnyReactComponent lat={loc.lat} lng={loc.lng} text="My Marker" />;
+  });
+
   return (
     // Important! Always set the container height explicitly
     <div style={{ height: "100vh", width: "100%" }}>
@@ -54,11 +81,7 @@ const Map = () => {
         defaultCenter={userLocation}
         defaultZoom={defaultProps.zoom}
       >
-        <AnyReactComponent
-          lat={userLocation.lat}
-          lng={userLocation.lng}
-          text="My Marker"
-        />
+        {markers}
       </GoogleMapReact>
     </div>
   );

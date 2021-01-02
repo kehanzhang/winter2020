@@ -7,24 +7,23 @@ import logo from '../assets/logo.png';
 export default function Login() {
   const { currUser, setCurrUser } = useContext(AuthContext);
   const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const history = useHistory();
+  const [password, setPassword] = useState("");
+  const history = useHistory();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
       setCurrUser({
-				email: email
-			});
-			history.push('/dashboard')
-
+        email: email
+      });
+      history.push("/dashboard");
     } catch (err) {
       console.log(err.message);
-    } 
+    }
   };
-	
+
   return (
     <>
       <div align="center">

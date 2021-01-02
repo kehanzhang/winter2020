@@ -4,9 +4,9 @@ import Home from "./components/pages/Home";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import Dashboard from "./components/pages/Dashboard";
-import NavBar from "./components/layout/NavBar";
+import ProfilePage from "./components/pages/ProfilePage";
 import { AuthProvider } from "./components/Auth";
-import "./App.css"
+import "./App.css";
 
 const App = () => {
   return (
@@ -16,7 +16,8 @@ const App = () => {
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-					<Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/profile" component={ProfilePage} />
         </Switch>
       </Router>
     </AuthProvider>

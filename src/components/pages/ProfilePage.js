@@ -44,8 +44,8 @@ const ProfilePage = props => {
   return (
     <Fragment>
       <h1>Profile Page</h1>
-      <form class="form" onSubmit={e => onSubmit(e)}>
-        <div class="form-group">
+      <form className="form" onSubmit={e => onSubmit(e)}>
+        <div className="form-group">
           <input
             type="text"
             placeholder="Name"
@@ -64,7 +64,7 @@ const ProfilePage = props => {
           <option value="red">Red</option>
           <option value="blue">Blue</option>
         </select>
-        <input type="submit" class="btn btn-primary" value="Update" />
+        <input type="submit" className="btn btn-primary" value="Update" />
       </form>
 
       <button onClick={routeToDashboard}>Back</button>

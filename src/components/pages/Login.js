@@ -13,10 +13,9 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
-      setCurrUser({
-				email: email
-			});
+      const signInRes = await firebase.auth().signInWithEmailAndPassword(email, password);
+			const {user} = signInRes;
+			setCurrUser(user);
 			history.push('/dashboard')
 
     } catch (err) {

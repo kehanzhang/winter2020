@@ -4,6 +4,7 @@ import { AuthContext } from "../Auth";
 import { useHistory } from "react-router-dom";
 
 import Chatbox from "../layout/Chatbox";
+import { act } from "react-dom/test-utils";
 
 export default function Dashboard() {
   const { currUser, setCurrUser } = useContext(AuthContext);
@@ -12,12 +13,11 @@ export default function Dashboard() {
   const [activeChat, setActiveChat] = useState(null);
 
   if (currUser === null) history.push("/");
-  //.where('members', 'array-contains', currUser.uid)
 
   const helper = data => {
-    console.log(data);
     setChats(data);
   };
+
   useEffect(() => {
     const unsubscribe = db.collection("chat-groups").onSnapshot(snapshot => {
       let data = snapshot.docs
@@ -26,16 +26,16 @@ export default function Dashboard() {
       helper(data);
     });
 
-    return () => unsubscribe();
+    return unsubscribe;
   }, []);
 
-  const buttonlist = chats.map(chatid => {
-    return (
-      <li key={chatid}>
-        <button onClick={setActiveChat(chatid)}>{chatid}</button>
-      </li>
-    );
-  });
+  const renderChats = chats.slice();
+  const buttonlist = renderChats.map(chat => (
+    <li key={chat}>
+      <button onClick={() => setActiveChat(chat)}>{chat}</button>
+    </li>
+  ));
+
   const logout = async e => {
     e.preventDefault();
 
@@ -61,7 +61,14 @@ export default function Dashboard() {
         <button onClick={() => console.log(chats)}>Print</button>
         <button onClick={profile}>TO THE PROFILES</button>
       </div>
-      {buttonlist}
+      <div>
+        <ul>{buttonlist}</ul>
+      </div>
+      <div>
+        {activeChat === null
+          ? "no active chat"
+          : `active chat is ${activeChat}`}
+      </div>
     </div>
   );
 }

@@ -5,65 +5,63 @@ import { useHistory } from "react-router-dom";
 
 import Chatbox from "../layout/Chatbox";
 
-
 export default function Dashboard() {
-	const {currUser, setCurrUser} = useContext(AuthContext)
-	const history = useHistory();
-	const [chats, setChats] = useState([])
-	const [activeChat, setActiveChat] = useState(null)
-	
-	if (currUser=== null)	history.push('/')
-	//.where('members', 'array-contains', currUser.uid)
+  const { currUser, setCurrUser } = useContext(AuthContext);
+  const history = useHistory();
+  const [chats, setChats] = useState([]);
+  const [activeChat, setActiveChat] = useState(null);
 
-	const helper = (data) => {
-		setChats(data);
-	}
-	useEffect(() => {
-		const unsubscribe = db
-			.collection("chat-groups")					
-			.onSnapshot((snapshot) => {
-				let data = snapshot.docs.filter((doc) => 
-					doc.data().members.includes(currUser.uid)
-				).map((doc) => doc.id)
-				helper(data)
-			})
-		
-		return () => unsubscribe()
-	},[])
+  if (currUser === null) history.push("/");
+  //.where('members', 'array-contains', currUser.uid)
 
-	const buttonlist = chats.map((chatid) => {
-		return (
-			<li key = {chatid}>
-				<button onClick = {setActiveChat(chatid)}>{chatid}</button>
-			</li>
-		)
-	})
-	const logout = async (e) => {
-		e.preventDefault();
-		
+  const helper = data => {
+    console.log(data);
+    setChats(data);
+  };
+  useEffect(() => {
+    const unsubscribe = db.collection("chat-groups").onSnapshot(snapshot => {
+      let data = snapshot.docs
+        .filter(doc => doc.data().members.includes(currUser.uid))
+        .map(doc => doc.id);
+      helper(data);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const buttonlist = chats.map(chatid => {
+    return (
+      <li key={chatid}>
+        <button onClick={setActiveChat(chatid)}>{chatid}</button>
+      </li>
+    );
+  });
+  const logout = async e => {
+    e.preventDefault();
+
     try {
       await firebase.auth().signOut();
       console.log("Signed Out!");
       setCurrUser(null);
-			
-			if(currUser === null)	history.push("/");
+
+      if (currUser === null) history.push("/");
     } catch (err) {
       console.log(err.message);
     }
-	};
-	
-	const profile = () => {
-		history.push('/profile')
-	}
-	return (
-		<div>
-			<h1>Dashboard</h1>
-			<div>
-				<button onClick={logout}>Log Out</button>
-				<button onClick={() => console.log(chats)}>Print</button>
-				<button onClick={profile}>TO THE PROFILES</button>
-			</div>
+  };
 
-		</div>
-)
+  const profile = () => {
+    history.push("/profile");
+  };
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      <div>
+        <button onClick={logout}>Log Out</button>
+        <button onClick={() => console.log(chats)}>Print</button>
+        <button onClick={profile}>TO THE PROFILES</button>
+      </div>
+      {buttonlist}
+    </div>
+  );
 }

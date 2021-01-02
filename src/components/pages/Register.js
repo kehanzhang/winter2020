@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import firebase from "../../firebase";
+import firebase, { db } from "../../firebase";
 import { AuthContext } from "../Auth";
 import logo from "../assets/logo.png";
 
@@ -30,19 +30,31 @@ export default function Register() {
       const { user } = regRes;
       setCurrUser(user);
 
+      // Create Profile
+
+      const newProfile = {
+        name: name,
+        status: "green",
+        friends: [],
+        location: new firebase.firestore.GeoPoint(0, 0),
+        user: firebase.auth().currentUser.uid
+      };
+
+      await db.collection("profiles").add(newProfile);
+
       history.push("/dashboard");
 
-      firebase.catch(err => {
-        switch (err.code) {
-          case "auth/email-already-in-use":
-          case "auth/invalid-email":
-            SetEmailError(err.message);
-            break;
-          case "auth/weak-password":
-            setPasswordError(err.message);
-            break;
-        }
-      });
+      // firebase.catch(err => {
+      //   switch (err.code) {
+      //     case "auth/email-already-in-use":
+      //     case "auth/invalid-email":
+      //       SetEmailError(err.message);
+      //       break;
+      //     case "auth/weak-password":
+      //       setPasswordError(err.message);
+      //       break;
+      //   }
+      // });
     } catch (err) {
       console.log(err.message);
     }

@@ -32,24 +32,30 @@ export default function Login() {
       <form onSubmit={e => handleSubmit(e)}>
         <div class="customTxt">
           <label htmlFor="log-email">Email</label>
+        </div>
           <input 
-
+            class="inputFields"
             id="log-email"
             type="email"
-            placeholder="email"
+            placeholder="Email"
             onChange={e => setEmail(e.target.value)}
           />
 
+        <div class="customTxt">
           <label htmlFor="log-pass">Password</label>
+        </div>
+
           <input
+            class="inputFields"
             id="log-pass"
             type="password"
             placeholder="Password"
             onChange={e => setPassword(e.target.value)}
           />
-        </div>
 
+        <div className = 'button-container'>
         <button className='loginButton' type="submit">Log In</button>
+        </div>
       </form>
       </div>
     </>

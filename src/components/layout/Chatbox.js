@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import firebase, { auth, db } from "../../firebase";
 import { AuthContext } from "../Auth";
 import { useHistory } from "react-router-dom";
 
 export default function Chatbox({ids}) {
+	let messageArray = [];
 	
+	console.log(ids);
+	
+	const buttonList = ids.map((id) => {
+		return (<li key = {id}>
+			{id}
+		</li>
+	)});
+
 	const getMessages = async () => {
 		console.log(ids[0])
 		let desired_id = null;
@@ -29,16 +38,15 @@ export default function Chatbox({ids}) {
 			console.log(err.message);
 		}
 	}
+	
 
 
 	return (
 		<div>
 			<h3>Message list</h3>
 			<ul>
-				<li>
-					<button onClick = {getMessages}>Press me</button>
-					<button onClick = {() => console.log(ids)}>Press me</button>
-				</li>
+				<li>hi</li>
+				{buttonList}
 			</ul>
 		</div>
 	)

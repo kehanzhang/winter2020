@@ -13,9 +13,21 @@ export default function Dashboard() {
 
 	if (currUser=== null)	history.push('/')
 	
-	const groupRef = db.collection('chat-groups');
-	const groups = groupRef.where('members', 'array-contains', currUser.uid)
-
+	const getChats = async () => {
+		try {
+			const query = await db.collection("chat-groups")
+      .where('members', 'array-contains', currUser.uid)
+			.get();
+			
+			query.forEach((doc) => {
+				console.log(doc.id, " => ", doc.data());
+			});
+				
+		} catch (err) {
+			console.log("Error getting documents: ", err);
+		}
+	}
+	
 	const logout = async (e) => {
 		e.preventDefault();
 		
@@ -35,7 +47,7 @@ export default function Dashboard() {
 			<h1>Chatbox</h1>
 			<div>
 				<button onClick={logout}>Log Out</button>
-				<Chatbox/>
+				<button onClick={getChats}>DONT CLICK ME</button>
 			</div>
 		</div>
 )

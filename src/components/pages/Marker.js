@@ -1,15 +1,17 @@
-import React from "react";
-import firebase, { db } from "../../firebase";
-import { useHistory } from "react-router-dom";
-import GoogleMapReact from "google-map-react";
+import React from 'react';
 
-export default function Marker() {
-      
+const Marker = (props: any) => {
+    const { color, name, id } = props;
     return (
       <div>
-        <h1>Marker</h1>
+        <div
+          className="pin bounce"
+          style={{ backgroundColor: blue, cursor: 'pointer' }}
+          title={name}
+        />
+        <div className="pulse" />
       </div>
     );
-  }
-  
+  };
 
+  export default Marker;

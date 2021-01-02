@@ -6,6 +6,7 @@ import Register from "./components/pages/Register";
 import Dashboard from "./components/pages/Dashboard";
 import ProfilePage from "./components/pages/ProfilePage";
 import Map from "./components/pages/Map";
+import Marker from "./components/pages/Marker";
 import { AuthProvider } from "./components/Auth";
 import "./App.css";
 
@@ -20,6 +21,7 @@ const App = () => {
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/profile" component={ProfilePage} />
           <Route exact path="/map" component={Map} />
+          <Route exact path="/marker" component={Marker} />
         </Switch>
       </Router>
     </AuthProvider>

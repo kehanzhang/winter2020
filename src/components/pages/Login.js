@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import firebase from "../../firebase";
+import firebase, { db } from "../../firebase";
 import { AuthContext } from "../Auth";
 import logo from "../assets/logo.png";
 
@@ -14,16 +14,48 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const loginRes = await firebase.auth().signInWithEmailAndPassword(email, password);
-			const { user } = loginRes
-			setCurrUser(user)
-			
+      const loginRes = await firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password);
+      const { user } = loginRes;
+      setCurrUser(user);
+
+      // Update user's location in database
+      if (navigator.geolocation) console.log("it exists");
+
+      navigator.geolocation.getCurrentPosition(
+        async pos => {
+          console.log(pos.coords.latitude);
+          console.log(pos.coords.longitude);
+
+          const uid = firebase.auth().currentUser.uid;
+
+          const query = await db
+            .collection("profiles")
+            .where("user", "==", uid)
+            .get();
+
+          const profileDoc = query.docs[0];
+
+          await profileDoc.ref.update({
+            location: new firebase.firestore.GeoPoint(
+              pos.coords.latitude,
+              pos.coords.longitude
+            )
+          });
+        },
+        err => {
+          console.log(err.message);
+        },
+        { timeout: 10000, enableHighAccuracy: true, maximumAge: 75000 }
+      );
+
       history.push("/dashboard");
     } catch (err) {
       console.log(err.message);
     }
-	};
-	
+  };
+
   return (
     <div align="center">
       <img

@@ -4,6 +4,7 @@ import { AuthContext } from "../Auth";
 import { useHistory } from "react-router-dom";
 
 import Chatbox from "../layout/Chatbox";
+import { act } from "react-dom/test-utils";
 
 
 export default function Dashboard() {
@@ -31,14 +32,14 @@ export default function Dashboard() {
 		return unsubscribe;
 	},[])
 
-	console.log(chats)
-	const buttonlist = chats.map((chatid) => {
-		return (
-			<li key = {chatid}>
-				<button onClick = {setActiveChat(chatid)}>{chatid}</button>
-			</li>
-		)
-	})
+	const renderChats = chats.slice();
+	const buttonlist = renderChats.map(chat => 
+		<li key = {chat}>
+			<button onClick = {() => setActiveChat(chat)}>
+				{chat}
+			</button>
+		</li>
+	)
 
 	const logout = async (e) => {
 		e.preventDefault();
@@ -65,7 +66,14 @@ export default function Dashboard() {
 				<button onClick={() => console.log(chats)}>Print</button>
 				<button onClick={profile}>TO THE PROFILES</button>
 			</div>
-
+			<div>
+				<ul>
+					{buttonlist}
+				</ul>
+			</div>
+			<div>
+				{activeChat === null ? "no active chat" : `active chat is ${activeChat}`}
+			</div>
 		</div>
 )
 }

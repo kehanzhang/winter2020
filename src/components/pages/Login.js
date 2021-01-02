@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import firebase from "../../firebase";
 import { AuthContext } from "../Auth";
-import logo from '../assets/logo.png';
+import logo from "../assets/logo.png";
 
 export default function Login() {
   const { currUser, setCurrUser } = useContext(AuthContext);
@@ -10,15 +10,14 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const history = useHistory();
 
-	
   const handleSubmit = async e => {
     e.preventDefault();
 
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
-      setCurrUser({
-        email: email
-      });
+      // setCurrUser({
+      //   email: email
+      // });
       history.push("/dashboard");
     } catch (err) {
       console.log(err.message);
@@ -26,13 +25,21 @@ export default function Login() {
   };
 
   return (
-		<div align="center">
-      <img onClick = {() => {history.push('/')}} src={logo} alt="Logo" className="center"/>
+    <div align="center">
+      <img
+        onClick={() => {
+          history.push("/");
+        }}
+        src={logo}
+        alt="Logo"
+        className="center"
+      />
       <form onSubmit={e => handleSubmit(e)}>
-        <div className="customTxt">
-          <label htmlFor="log-email">Email</label>
-        </div>
-          <input 
+        <div className="columnRight">
+          <div className="customTxt">
+            <label htmlFor="log-email">Email</label>
+          </div>
+          <input
             className="inputFields"
             id="log-email"
             type="email"
@@ -40,9 +47,9 @@ export default function Login() {
             onChange={e => setEmail(e.target.value)}
           />
 
-        <div className="customTxt">
-          <label htmlFor="log-pass">Password</label>
-        </div>
+          <div className="customTxt">
+            <label htmlFor="log-pass">Password</label>
+          </div>
 
           <input
             className="inputFields"
@@ -51,11 +58,14 @@ export default function Login() {
             placeholder="Password"
             onChange={e => setPassword(e.target.value)}
           />
+        </div>
 
-        <div className = 'button-container'>
-        <button className='loginButton' type="submit">Log In</button>
+        <div className="button-container">
+          <button className="loginButton" type="submit">
+            Log In
+          </button>
         </div>
       </form>
-		</div>
+    </div>
   );
 }

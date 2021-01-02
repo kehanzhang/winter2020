@@ -8,7 +8,7 @@ const ProfilePage = props => {
   const { currUser, setCurrUser } = useContext(AuthContext);
 
   const [name, setName] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("green");
 
   const history = useHistory();
 
@@ -20,14 +20,22 @@ const ProfilePage = props => {
     e.preventDefault();
 
     try {
+      const uid = firebase.auth().currentUser.uid;
+
       const query = await db
         .collection("profiles")
-        .where("user", "==", currUser.uid)
+        .where("user", "==", uid)
         .get();
 
-      query.forEach(doc => {
-        console.log(doc.data());
-      });
+      const profileDoc = query.docs[0];
+
+      console.log(name);
+      console.log(status);
+
+      await profileDoc.ref.update({ name, status });
+
+      console.log("Profile updated");
+      history.push("/dashboard");
     } catch (err) {
       console.log(err.message);
     }

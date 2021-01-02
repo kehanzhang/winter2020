@@ -6,23 +6,23 @@ import { AuthContext } from "../Auth";
 export default function Login() {
   const { currUser, setCurrUser } = useContext(AuthContext);
   const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const history = useHistory();
+  const [password, setPassword] = useState("");
+  const history = useHistory();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     try {
-      const signInRes = await firebase.auth().signInWithEmailAndPassword(email, password);
-			const {user} = signInRes;
-			setCurrUser(user);
-			history.push('/dashboard')
-
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      setCurrUser({
+        email: email
+      });
+      history.push("/dashboard");
     } catch (err) {
       console.log(err.message);
-    } 
+    }
   };
-	
+
   return (
     <>
       <h2>Log In</h2>

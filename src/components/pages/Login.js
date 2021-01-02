@@ -29,6 +29,7 @@ export default function Login() {
 		<div align="center">
       <img onClick = {() => {history.push('/')}} src={logo} alt="Logo" className="center"/>
       <form onSubmit={e => handleSubmit(e)}>
+      <div className="columnRight">
         <div className="customTxt">
           <label htmlFor="log-email">Email</label>
         </div>
@@ -51,6 +52,7 @@ export default function Login() {
             placeholder="Password"
             onChange={e => setPassword(e.target.value)}
           />
+      </div>
 
         <div className = 'button-container'>
         <button className='loginButton' type="submit">Log In</button>

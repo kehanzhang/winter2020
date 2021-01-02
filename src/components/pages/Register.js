@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import firebase from "../../firebase";
 import { AuthContext } from "../Auth";
@@ -10,6 +10,8 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password_conf, setPassword_conf] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [EmailError, SetEmailError] = useState("");
 
 	const history = useHistory();
 
@@ -28,10 +30,63 @@ export default function Register() {
 			});
 			history.push('/dashboard')
 
+      firebase.catch(err =>{
+        switch(err.code ){
+          case "auth/email-already-in-use": 
+          case "auth/invalid-email":
+            SetEmailError(err.message);
+            break;
+          case "auth/weak-password":
+            setPasswordError(err.message);
+            break;
+        }
+      })
     } catch (err) {
       console.log(err.message);
     } 
-	};
+  };
+  
+
+/*
+  firebase.catch(err =>{
+    switch(err.code ){
+      case "auth/invalid-email": 
+      case "auth/user-disabled":
+      case "auth/user-not-found":
+        SetEmailError(err.message);
+        break;
+      case "auth/wrong-password":
+        setPasswordError(err.message);
+        break;
+    }
+  }) 
+*/
+
+  const authListener = () => {
+    firebase.auth().onAuthStateChanged((currUser) => {
+      if(currUser){
+        setCurrUser(currUser);
+      }
+      else{
+        setCurrUser("");
+      }
+    })
+  }
+
+  useEffect(() => {
+    authListener();
+  }, [])
+
+  const clearInputs = () =>{
+    setEmail("");
+    setName("");
+    setPassword("");
+  }
+
+  const clearErrors = () =>{
+    setPasswordError("");
+    SetEmailError("");
+  }
 	
   return (
     <>

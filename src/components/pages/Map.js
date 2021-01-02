@@ -51,6 +51,24 @@ const Map = () => {
         console.log(pos.coords.latitude);
         console.log(pos.coords.longitude);
 
+        // Update current user's location in database
+
+        const uid = firebase.auth().currentUser.uid;
+
+        const query = await db
+          .collection("profiles")
+          .where("user", "==", uid)
+          .get();
+
+        const profileDoc = query.docs[0];
+
+        await profileDoc.ref.update({
+          location: new firebase.firestore.GeoPoint(
+            pos.coords.latitude,
+            pos.coords.longitude
+          )
+        });
+
         await getOthersLocations();
       },
       err => {

@@ -3,6 +3,32 @@ import { useHistory } from "react-router-dom";
 import firebase from "../../firebase";
 import { AuthContext } from "../Auth";
 
+const authListener = () => {
+  firebase.auth().onAuthStateChanged((currUser) => {
+    if(currUser){
+      setCurrUser(currUser);
+    }
+    else{
+      setCurrUser("");
+    }
+  })
+}
+
+useEffect(() => {
+  authListener();
+}, [])
+
+const clearInputs = () =>{
+  setEmail("");
+  setName("");
+  setPassword("");
+}
+
+const clearErrors = () =>{
+  setPasswordError("");
+  SetEmailError("");
+}
+
 export default function Register() {
   const {setCurrUser } = useContext(AuthContext);
 
@@ -61,32 +87,6 @@ export default function Register() {
   }) 
 */
 
-  const authListener = () => {
-    firebase.auth().onAuthStateChanged((currUser) => {
-      if(currUser){
-        setCurrUser(currUser);
-      }
-      else{
-        setCurrUser("");
-      }
-    })
-  }
-
-  useEffect(() => {
-    authListener();
-  }, [])
-
-  const clearInputs = () =>{
-    setEmail("");
-    setName("");
-    setPassword("");
-  }
-
-  const clearErrors = () =>{
-    setPasswordError("");
-    SetEmailError("");
-  }
-	
   return (
     <>
       <h2>Register</h2>

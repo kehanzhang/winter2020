@@ -56,3 +56,18 @@
   font-size: 15pt;
   font-weight: 500;
 }
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.columnLeft {
+  display:inline-block;
+  margin-right:100px; 
+} 
+
+.columnRight {
+  display:inline-block; 
+} 

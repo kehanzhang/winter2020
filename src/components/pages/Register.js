@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import firebase from "../../firebase";
 import { AuthContext } from "../Auth";
+import logo from '../assets/logo.png';
 
 // const authListener = () => {
 //   firebase.auth().onAuthStateChanged((currUser) => {
@@ -88,42 +89,72 @@ export default function Register() {
   
   return (
     <>
-      <h2>Register</h2>
+      <div align="center">
+      <img src={logo} alt="Logo" class="center"/>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="reg-name">Name</label>
-        <input
-          id="reg-name"
-          type="text"
-          placeholder="Display Name"
-          onChange={e => setName(e.target.value)}
-        />
+      <div class="row">
+        <div class="columnLeft">
+          <div class="customTxt">
+            <label htmlFor="reg-name">Name</label>
+          </div>
+            <input
+              class="inputFields"
+              id="reg-name"
+              type="text"
+              placeholder="Display Name"
+              onChange={e => setName(e.target.value)}
+            />
+        </div>
 
-        <label htmlFor="reg-email">Email</label>
-        <input
-          id="reg-email"
-          type="email"
-          placeholder="email"
-          onChange={e => setEmail(e.target.value)}
-        />
+        <div class="columnRight">
+          <div class="customTxt">
+            <label htmlFor="reg-email">Email</label>
+          </div>
 
-        <label htmlFor="reg-pass">Password</label>
-        <input
-          id="reg-pass"
-          type="password"
-          placeholder="Password"
-          onChange={e => setPassword(e.target.value)}
-        />
+            <input
+              class="inputFields"
+              id="reg-email"
+              type="email"
+              placeholder="Email"
+              onChange={e => setEmail(e.target.value)}
+            />
+        </div>
+      </div>
 
-        <label htmlFor="reg-pass_conf">Password Confirmation</label>
-        <input
-          id="reg-pass-conf"
-          type="password"
-          placeholder="Confirm Password"
-          onChange={e => setPassword_conf(e.target.value)}
-        />
+      <div class="row">
+        <div class="columnLeft">
+          <div class="customTxt">
+            <label htmlFor="reg-pass">Password</label>
+          </div>
 
-        <button type="submit">Register</button>
+            <input
+              class="inputFields"
+              id="reg-pass"
+              type="password"
+              placeholder="Password"
+              onChange={e => setPassword(e.target.value)}
+            />
+        </div>
+        <div class="columnRight">
+          <div class="customTxt">
+            <label htmlFor="reg-pass_conf">Password Confirmation</label>
+          </div>
+
+            <input
+              class="inputFields"
+              id="reg-pass-conf"
+              type="password"
+              placeholder="Confirm Password"
+              onChange={e => setPassword_conf(e.target.value)}
+            />
+        </div>
+      </div>
+
+        <div className = 'button-container'>
+        <button className='loginButton' type="submit">Register</button>
+        </div>
       </form>
+      </div>
     </>
   );
 }

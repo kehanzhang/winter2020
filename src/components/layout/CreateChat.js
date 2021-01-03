@@ -28,24 +28,21 @@ export default function CreateChat({callBack}) {
 					}
 					groupDocRef.set(newChat)
 					callBack(newChat)
+					db.collection('chat-messages').doc(id).collection('messages').add({})
+						.then((docRef) => {
+							let messageDocRef = db.collection('chat-messages').doc(id).collection('messages').doc(docRef.id);
+
+							const newMessage = {
+								sentAt: firebase.firestore.FieldValue.serverTimestamp(),
+								sentBy: currUser.uid,
+								text: firstText,
+								id: docRef.id
+							};
+							
+							messageDocRef.set(newMessage);
+						})
 				})
-			
-			db.collection('chat-messages').doc(id).collection('messages').add({})
-				.then((docRef) => {
-					let messageDocRef = db.collection('chat-messages').doc(id).collection('messages').doc(docRef.id);
 
-					const newMessage = {
-						sentAt: firebase.firestore.FieldValue.serverTimestamp(),
-						sentBy: currUser.uid,
-						text: firstText,
-						id: docRef.id
-					};
-					
-					messageDocRef.set(newMessage);
-
-
-				})
-				
 		}
 	}
 

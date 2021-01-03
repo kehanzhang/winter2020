@@ -31,7 +31,6 @@ export default function Chatbox({chat}) {
 	useEffect(() => {
 		const unsubscribe = db.collection("chat-messages").doc(id).collection("messages").onSnapshot((snapshot) => {
 			let data = snapshot.docs.map(doc => doc.data()).sort((m1,m2) => {return m1.sentAt - m2.sentAt});
-			console.log(data)
 			setMessages(data)
 		})
 		return unsubscribe;

@@ -20,56 +20,102 @@ const Marker = props => {
   const { currUser, profiles } = useContext(AuthContext);
   const [firstText, setFirstText] = useState("");
 
-  const friends = profiles[currUser.uid].friends;
+	const checkIfExist = () => {
+		if (profiles[currUser.uid].chats.includes(recipient)){
+			console.log('chat already exists')
+			const index = profiles[currUser.uid].chats.indexOf(recipient)
+			
+			db.collection('chat-groups').doc(profiles[currUser.uid].chatids[index]).get()
+				.then((query) => {
+					callBack(query.data())
+				})
+			
+		}
+		else {
+			onOpenModal()
+		}
+	}
 
-  const createChat = e => {
-    console.log("createChat");
+  const createChat = (e) => {
+		e.preventDefault();
 
-    e.preventDefault();
+		console.log("createChat");
+		if (firstText !== "") {
+			let id = null;
+			db.collection("chat-groups")
+				.add({})
+				.then(docRef => {
+					let groupDocRef = db.collection("chat-groups").doc(docRef.id);
+					id = docRef.id;
+					const newChat = {
+						chatName: `${profiles[recipient].name}-${profiles[currUser.uid].name}`,
+						createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+						createdBy: currUser.uid,
+						id: docRef.id,
+						members: [currUser.uid, recipient]
+					};
+					groupDocRef.set(newChat);
+					callBack(newChat);
+					
+					//query and change profiles
+					db
+						.collection("profiles")
+						.where("user", "==", currUser.uid)
+						.get()
+						.then((query) => {
+							const profileRef = query.docs[0]
+							profileRef.ref.update({
+								chats: [...profiles[currUser.uid].chats, recipient],
+								chatids: [...profiles[currUser.uid].chatids, id]
+							})
+							.then(() => {
+								console.log('doc updated self')
+							})
+						})
 
-    if (firstText !== "") {
-      let id = null;
-      db.collection("chat-groups")
-        .add({})
-        .then(docRef => {
-          let groupDocRef = db.collection("chat-groups").doc(docRef.id);
-          id = docRef.id;
-          const newChat = {
-            chatName: profiles[recipient].name,
-            createdAt: Date.now(),
-            createdBy: currUser.uid,
-            id: docRef.id,
-            members: [currUser.uid, recipient]
-          };
-          groupDocRef.set(newChat);
-          callBack(newChat);
-          db.collection("chat-messages")
-            .doc(id)
-            .collection("messages")
-            .add({})
-            .then(docRef => {
-              let messageDocRef = db
-                .collection("chat-messages")
-                .doc(id)
-                .collection("messages")
-                .doc(docRef.id);
+					db
+						.collection("profiles")
+						.where("user", "==", recipient)
+						.get()
+						.then((query) => {
+							const profileRef = query.docs[0]
+							profileRef.ref.update({
+								chats: [...profiles[recipient].chats, currUser.uid],
+								chatids: [...profiles[currUser.uid].chatids, id]
+							})
+							.then(() => {
+								console.log('doc updated other')
+							})
+						})
 
-              const newMessage = {
-                sentAt: firebase.firestore.FieldValue.serverTimestamp(),
-                sentBy: currUser.uid,
-                text: firstText,
-                id: docRef.id
-              };
+					db.collection("chat-messages")
+						.doc(id)
+						.collection("messages")
+						.add({})
+						.then(docRef => {
+							let messageDocRef = db
+								.collection("chat-messages")
+								.doc(id)
+								.collection("messages")
+								.doc(docRef.id);
 
-              messageDocRef.set(newMessage);
-            });
-        });
-    }
+							const newMessage = {
+								sentAt: firebase.firestore.FieldValue.serverTimestamp(),
+								sentBy: currUser.uid,
+								text: firstText,
+								id: docRef.id
+							};
+
+							messageDocRef.set(newMessage);
+						});
+				});
+		}  
+    
   };
 
   return (
     <Fragment>
-      <a className="marker-button" onClick={onOpenModal}>
+      <a className="marker-button" onClick={checkIfExist}>
         <div
           className="pin bounce"
           style={{

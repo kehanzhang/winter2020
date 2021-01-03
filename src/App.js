@@ -10,7 +10,6 @@ import Map from "./components/pages/Map";
 import Marker from "./components/layout/Marker";
 import { AuthProvider } from "./components/Auth";
 import "./App.css";
-import { NewChat } from "./components/pages/NewChat";
 
 const App = () => {
   return (
@@ -24,7 +23,6 @@ const App = () => {
           <Route exact path="/profile" component={ProfilePage} />
           <Route exact path="/map" component={Map} />
           <Route exact path="/marker" component={Marker} />
-          <Route exact path="/newChat" component={NewChat} />
         </Switch>
       </Router>
     </AuthProvider>

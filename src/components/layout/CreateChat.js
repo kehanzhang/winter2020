@@ -28,6 +28,20 @@ export default function CreateChat({callBack}) {
 					}
 					groupDocRef.set(newChat)
 					callBack(newChat)
+
+					//query and change profile
+					const query = db
+						.collection("profiles")
+						.where("user", "==", currUser.uid)
+						.get();
+		
+					const profileDoc = query.docs[0];
+		
+		
+					profileDoc.ref.update({
+						chats: [...chats, recipient]
+					});
+
 					db.collection('chat-messages').doc(id).collection('messages').add({})
 						.then((docRef) => {
 							let messageDocRef = db.collection('chat-messages').doc(id).collection('messages').doc(docRef.id);
@@ -42,7 +56,8 @@ export default function CreateChat({callBack}) {
 							messageDocRef.set(newMessage);
 						})
 				})
-
+	
+				
 		}
 	}
 

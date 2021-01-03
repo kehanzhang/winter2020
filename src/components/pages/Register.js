@@ -34,11 +34,12 @@ export default function Register() {
 
       const newProfile = {
         name: name,
-        status: "green",
-        friends: [],
+        status: "available",
+				chats: [],
+				chatids: [],
         location: new firebase.firestore.GeoPoint(0, 0),
         user: firebase.auth().currentUser.uid,
-        photoURL: ""
+				photoURL: "",
       };
 
       await db.collection("profiles").add(newProfile);

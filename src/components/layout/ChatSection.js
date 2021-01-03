@@ -87,7 +87,7 @@ export default function ChatSection({ chat }) {
 						position: "single"
 					}}
 				>
-				<Message.Header sender = {msendername} sentBy = {message.sentAt.toString()}/>
+				<Message.Header sender = {msendername}/>
 				</Message>
 			</>
     );

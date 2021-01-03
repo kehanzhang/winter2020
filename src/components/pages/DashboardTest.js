@@ -97,7 +97,8 @@ const DashboardTest = () => {
                       return (
                         <Avatar
                           src={
-                            profile.photoURL === ""
+                            profile.photoURL === "" ||
+                            profile.status === "anonymous"
                               ? defaultIco
                               : profile.photoURL
                           }

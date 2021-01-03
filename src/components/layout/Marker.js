@@ -77,9 +77,12 @@ const Marker = props => {
             cursor: "pointer",
             borderStyle: "dotted"
           }}
-          title={name}
+          title={color === "anonymous" ? null : name}
         >
-          <img src={url == "" ? defaultIco : url} className="marker-img"></img>
+          <img
+            src={url == "" || color === "anonymous" ? defaultIco : url}
+            className="marker-img"
+          ></img>
         </div>
 
         <div className="pulse" />

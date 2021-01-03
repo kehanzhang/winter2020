@@ -5,7 +5,7 @@ import { AuthContext } from "../Auth";
 import logo from "../assets/logo.png";
 
 export default function Login() {
-  const { currUser, setCurrUser } = useContext(AuthContext);
+  //const { currUser, setCurrUser } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
@@ -14,11 +14,15 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const loginRes = await firebase
+      // const loginRes = await firebase
+      //   .auth()
+      //   .signInWithEmailAndPassword(email, password);
+      // const { user } = loginRes;
+			// setCurrUser(user);
+			
+			await firebase
         .auth()
         .signInWithEmailAndPassword(email, password);
-      const { user } = loginRes;
-      setCurrUser(user);
 
       // Update user's location in database
       if (navigator.geolocation) console.log("it exists");

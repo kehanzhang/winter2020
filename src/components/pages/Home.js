@@ -6,7 +6,6 @@ import logo from "../assets/logo.png";
 export default function Home() {
   const { currUser } = useContext(AuthContext);
   const history = useHistory();
-
   if (currUser !== null) history.push("/dashboard");
 
   const register = () => {

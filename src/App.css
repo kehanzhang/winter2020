@@ -117,6 +117,7 @@ display:inline-block;
   border: 5px solid green;
   width: 150px;
   height: 150px; 
+  margin-bottom: 30px;
 }
 .mask {
   width: 120px;
@@ -140,6 +141,40 @@ display:inline-block;
   float: right;
   width: 70%;
 }
+
+.profileTxtLight {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  margin-top: 20px;
+}
+
+.profileTxtLight2 {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 25px;
+}
+
+.profileInput {
+  color: #7A7A7A;
+  border: 3px solid #ffffff;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.backSubmitBtn {
+  display:inline-block;
+  margin-right:20px; 
+  color: #7A7A7A;
+  background-color: #ffffff;
+  border: 0px;
+  font-size: 15px;
+  width: 70px;
+  height: 25px;
+  font-weight: 400;
+  } 
 
 /*
 .marker {

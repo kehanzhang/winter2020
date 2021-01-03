@@ -73,7 +73,7 @@ export default function Login() {
       <form onSubmit={e => handleSubmit(e)}>
         <div className="columnRight">
           <div className="customTxt">
-            <label htmlFor="log-email">Email</label>
+            <label className="customTxt" htmlFor="log-email">Email</label>
           </div>
           <input
             className="inputFields"

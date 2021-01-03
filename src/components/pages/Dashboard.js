@@ -15,6 +15,7 @@ export default function Dashboard() {
   return (
     <div>
       <h1>Dashboard</h1>
+			<h2>Hello {currUser === null? 'hi' : currUser.email}</h2>
       <MainContainer/>
 			<Logout/>
     </div>

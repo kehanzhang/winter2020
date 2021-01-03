@@ -8,11 +8,7 @@ export default function Chatbox({chat}) {
 	const [formText, setFormText] = useState("");
 	const {currUser} = useContext(AuthContext);
 
-	const newMessage = {
-		sentAt: firebase.firestore.FieldValue.serverTimestamp(),
-		sentBy: currUser.uid,
-		text: formText,
-	};
+	
 
 	const sendMessage = (e) => {
 		e.preventDefault()
@@ -22,10 +18,17 @@ export default function Chatbox({chat}) {
 			db.collection('chat-messages').doc(id).collection('messages').add({})
 			.then(function(docRef) {
 				var messageDocRef = db.collection('chat-messages').doc(id).collection('messages').doc(docRef.id)
-				console.log("Document written with ID: ", docRef.id);
+				//console.log("Document written with ID: ", docRef.id);
+
+				const newMessage = {
+					sentAt: firebase.firestore.FieldValue.serverTimestamp(),
+					sentBy: currUser.uid,
+					text: formText,
+					id: docRef.id
+				};
+				
 				messageDocRef.set(newMessage);
 			});
-			
 			setFormText('');
 		}
 	}
@@ -53,7 +56,6 @@ export default function Chatbox({chat}) {
 				<li>{`active chat is ${chatName}`}</li>
 				{messageList}
 			</ul>
-
 
 			<form onSubmit = {sendMessage}>
 				<input 

@@ -41,6 +41,8 @@ const DashboardTest = () => {
 
   useEffect(() => {
     const unsubscribe = db.collection("chat-groups").onSnapshot(snapshot => {
+      if (currUser === null) history.push("/");
+
       let data = snapshot.docs
         .filter(doc => doc.data().members.includes(currUser.uid))
         .map(doc => doc.data());
@@ -55,6 +57,8 @@ const DashboardTest = () => {
   const profile = () => {
     history.push("/profile");
   };
+
+  if (currUser === null) history.push("/");
 
   return (
     <div
@@ -98,20 +102,27 @@ const DashboardTest = () => {
           </ConversationList>
           <div align="center" className="btmPadding">
             <div className="leftBtn">
-              <button className="toggleButton" onClick={profile}>Profile</button>
+              <button className="toggleButton" onClick={profile}>
+                Profile
+              </button>
             </div>
             <div className="midBtn">
-              <button className="toggleButton" onClick={() => setDisplayMap(!displayMap)}>Toggle</button>
+              <button
+                className="toggleButton"
+                onClick={() => setDisplayMap(!displayMap)}
+              >
+                Toggle
+              </button>
             </div>
             <div className="rightBtn">
-              <Logout /> 
+              <Logout />
             </div>
           </div>
         </Sidebar>
 
         {displayMap ? (
           <Map />
-        ) : activeChat === null ? (
+        ) : activeChat === null || currUser === null ? (
           <div>Loading...</div>
         ) : (
           <ChatSection chat={activeChat} />

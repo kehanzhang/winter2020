@@ -116,12 +116,8 @@ body {
   background-color: green;
   border: 5px solid green;
   width: 150px;
-<<<<<<< HEAD
   height: 150px;
-=======
-  height: 150px; 
   margin-bottom: 30px;
->>>>>>> dd2729265d059775c4b59227c5d4abbb4bbae33f
 }
 .mask {
   width: 120px;
@@ -162,23 +158,23 @@ body {
 }
 
 .profileInput {
-  color: #7A7A7A;
+  color: #7a7a7a;
   border: 3px solid #ffffff;
   font-size: 15px;
   font-weight: 400;
 }
 
 .backSubmitBtn {
-  display:inline-block;
-  margin-right:20px; 
-  color: #7A7A7A;
+  display: inline-block;
+  margin-right: 20px;
+  color: #7a7a7a;
   background-color: #ffffff;
   border: 0px;
   font-size: 15px;
   width: 70px;
   height: 25px;
   font-weight: 400;
-  } 
+}
 
 /*
 .marker {

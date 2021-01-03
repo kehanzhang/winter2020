@@ -14,10 +14,11 @@ export default function CreateChat({callBack}) {
 		e.preventDefault();
 
 		if (firstText !== '' && friends.includes(recipient)) {
+			let id = null;
 			db.collection('chat-groups').add({})
 				.then((docRef) => {
-					var groupDocRef = db.collection('chat-groups').doc(docRef.id)
-					
+					let groupDocRef = db.collection('chat-groups').doc(docRef.id)
+					id = docRef.id;
 					const newChat = {
 						chatName: recipient,
 						createdAt: Date.now(),
@@ -27,8 +28,21 @@ export default function CreateChat({callBack}) {
 					}
 					groupDocRef.set(newChat)
 					callBack(newChat)
+					db.collection('chat-messages').doc(id).collection('messages').add({})
+						.then((docRef) => {
+							let messageDocRef = db.collection('chat-messages').doc(id).collection('messages').doc(docRef.id);
+
+							const newMessage = {
+								sentAt: firebase.firestore.FieldValue.serverTimestamp(),
+								sentBy: currUser.uid,
+								text: firstText,
+								id: docRef.id
+							};
+							
+							messageDocRef.set(newMessage);
+						})
 				})
-				
+
 		}
 	}
 

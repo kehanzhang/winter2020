@@ -12,12 +12,9 @@ export default function Chatbox({chat}) {
 		e.preventDefault()
 		if (formText !== '') {
 			//push to firebase
-			console.log(formText);
 			db.collection('chat-messages').doc(id).collection('messages').add({})
 			.then(function(docRef) {
 				var messageDocRef = db.collection('chat-messages').doc(id).collection('messages').doc(docRef.id)
-				//console.log("Document written with ID: ", docRef.id);
-
 				const newMessage = {
 					sentAt: firebase.firestore.FieldValue.serverTimestamp(),
 					sentBy: currUser.uid,
@@ -34,7 +31,6 @@ export default function Chatbox({chat}) {
 	useEffect(() => {
 		const unsubscribe = db.collection("chat-messages").doc(id).collection("messages").onSnapshot((snapshot) => {
 			let data = snapshot.docs.map(doc => doc.data()).sort((m1,m2) => {return m1.sentAt - m2.sentAt});
-			console.log(data)
 			setMessages(data)
 		})
 		return unsubscribe;

@@ -7,7 +7,7 @@ import Dashboard from "./components/pages/Dashboard";
 import DashboardTest from "./components/pages/DashboardTest";
 import ProfilePage from "./components/pages/ProfilePage";
 import Map from "./components/pages/Map";
-import Marker from "./components/pages/Marker";
+import Marker from "./components/layout/Marker";
 import { AuthProvider } from "./components/Auth";
 import "./App.css";
 
@@ -19,7 +19,7 @@ const App = () => {
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/dashboard" component={DashboardTest} />
           <Route exact path="/profile" component={ProfilePage} />
           <Route exact path="/map" component={Map} />
           <Route exact path="/marker" component={Marker} />

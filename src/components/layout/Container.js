@@ -6,7 +6,7 @@ import Chatbox from "./Chatbox";
 import { AuthContext } from "../Auth";
 import CreateChat from './CreateChat'
 
-export default function MainContainer() {
+export default function Container() {
   const { currUser } = useContext(AuthContext);
   const [chats, setChats] = useState([]);
   const [activeChat, setActiveChat] = useState(null);
@@ -32,7 +32,7 @@ export default function MainContainer() {
 	}
 	
 	const callBack = (childData) => {
-		this.setActiveChat(childData);
+		setActiveChat(childData);
 	}
 	
 
@@ -56,7 +56,7 @@ export default function MainContainer() {
       </div>
       <div>
         {activeChat === null ? "no active chat" : 
-					activeChat === "creationseed" ? <CreateChat callback = {callBack}/> : <Chatbox chat={activeChat} />}
+					activeChat === "creationseed" ? <CreateChat callBack = {callBack}/> : <Chatbox chat={activeChat} />}
       </div>
     </div>
   );

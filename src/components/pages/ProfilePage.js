@@ -139,7 +139,7 @@ const ProfilePage = () => {
               <img className="mask" src={photoURL}></img>
             </div>
             <div className="profileTxtLight">
-              <label htmlFor="name">What're You Up To?</label>
+              <label htmlFor="name">Name</label>
             </div>
             <input
               type="text"

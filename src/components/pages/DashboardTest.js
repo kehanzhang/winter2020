@@ -55,7 +55,6 @@ const DashboardTest = () => {
         .map(doc => doc.data());
 
       setChats(data);
-      setActiveChat(data[0]);
       setLoading(false);
     });
 

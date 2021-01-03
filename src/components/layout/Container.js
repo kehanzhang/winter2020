@@ -37,9 +37,9 @@ export default function MainContainer() {
       <div>
         <button onClick={profile}>TO THE PROFILES</button>
       </div>
-      {/* <div>
+      <div>
         <ul>{buttonlist}</ul>
-      </div> */}
+      </div>
       <div>
         {activeChat === null ? "no active chat" : <Chatbox chat={activeChat} />}
       </div>

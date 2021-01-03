@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../Auth";
 import { useHistory } from "react-router-dom";
 
-// import MainContainer from "../layout/MainContainer";
+import Container from "../layout/Container";
 import Logout from "../layout/Logout";
 
 export default function Dashboard() {
@@ -16,7 +16,7 @@ export default function Dashboard() {
     <div>
       <h1>Dashboard</h1>
       <h2>Hello {currUser === null ? "hi" : currUser.email}</h2>
-      <MainContainer />
+      <Container />
       <Logout />
     </div>
   );

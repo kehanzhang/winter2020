@@ -6,7 +6,7 @@ import GoogleMapReact from "google-map-react";
 import Marker from "../layout/Marker";
 import { AuthContext } from "../Auth";
 
-const Map = () => {
+const Map = ({ initChat }) => {
   const defaultProps = {
     center: {
       lat: 59.95,
@@ -18,7 +18,7 @@ const Map = () => {
   const [userLocation, setUserLocation] = useState({ lat: 0, lng: 0 });
   const [othersLocations, setOthersLocations] = useState([]);
   const [loading, setLoading] = useState("true");
-	const {currUser, profiles} = useContext(AuthContext)
+  const { currUser, profiles } = useContext(AuthContext);
 
   const getOthersLocations = async () => {
     let locArr = [];
@@ -80,7 +80,7 @@ const Map = () => {
 
   if (loading) return <div>Loading...</div>;
 
-	const allLocations = othersLocations;
+  const allLocations = othersLocations;
   const markers = allLocations.map(loc => {
     return (
       <Marker
@@ -90,6 +90,7 @@ const Map = () => {
         name={profiles[loc.id].name}
         url={profiles[loc.id].photoURL}
         id={loc.id}
+        callBack={initChat}
       />
     );
   });

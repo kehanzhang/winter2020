@@ -96,9 +96,17 @@ const DashboardTest = () => {
               );
             })}
           </ConversationList>
-          <button onClick={() => setDisplayMap(!displayMap)}>toggle</button>
-          <button onClick={profile}>Profile</button>
-          <Logout />
+          <div align="center" className="btmPadding">
+            <div className="leftBtn">
+              <button className="toggleButton" onClick={profile}>Profile</button>
+            </div>
+            <div className="midBtn">
+              <button className="toggleButton" onClick={() => setDisplayMap(!displayMap)}>Toggle</button>
+            </div>
+            <div className="rightBtn">
+              <Logout /> 
+            </div>
+          </div>
         </Sidebar>
 
         {displayMap ? (

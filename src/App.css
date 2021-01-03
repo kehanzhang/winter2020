@@ -19,9 +19,10 @@ body {
 
 .loginButton {
   font-size: 23px;
-  color: #03989e;
+  color: #6eaad8;
   font-weight: 450;
   background-color: #ffffff;
+  border: 0px;
   border-radius: 15px;
   width: 275px;
   height: 50px;
@@ -31,11 +32,22 @@ body {
   font-size: 23px;
   color: #ffffff;
   font-weight: 450;
-  background-color: #03989e;
+  background-color: #6eaad8;
   border-radius: 15px;
   border: 4px solid #ffffff;
   width: 275px;
   height: 50px;
+}
+
+.toggleButton {
+  font-size: 15px;
+  color: #7b8c9b;
+  font-weight: 450;
+  background-color: #c7e3fa;
+  border-radius: 15px;
+  border: 0px;
+  width: 100px;
+  height: 30px;
 }
 
 .center {
@@ -76,9 +88,59 @@ body {
   display: inline-block;
   margin-right: 100px;
 }
-*/ .columnRight {
+
+.columnRight {
   display: inline-block;
 }
+
+.leftBtn {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.midBtn {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.rightBtn {
+  display: inline-block;
+}
+
+.btmPadding {
+  padding-bottom: 10px;
+}
+
+.circle {
+  border-radius: 50%;
+  background-color: green;
+  border: 5px solid green;
+  width: 150px;
+  height: 150px;
+}
+.mask {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 0px;
+  border-radius: 50%;
+}
+
+.profileLeft {
+  padding-left: 30px;
+  padding-top: 30px;
+  float: left;
+  width: 30%;
+}
+
+.profleRight {
+  padding: 30px;
+  float: right;
+  width: 70%;
+}
+
 /*
 .marker {
 position: absolute;

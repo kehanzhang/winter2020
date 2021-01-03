@@ -37,7 +37,8 @@ export default function Register() {
         status: "green",
         friends: [],
         location: new firebase.firestore.GeoPoint(0, 0),
-        user: firebase.auth().currentUser.uid
+        user: firebase.auth().currentUser.uid,
+        photoURL: ""
       };
 
       await db.collection("profiles").add(newProfile);

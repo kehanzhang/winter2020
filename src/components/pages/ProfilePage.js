@@ -4,15 +4,14 @@ import { AuthContext } from "../Auth";
 import firebase, { db, storage } from "../../firebase";
 
 const ProfilePage = () => {
-
   const [name, setName] = useState("");
   const [status, setStatus] = useState("green");
   const [file, setFile] = useState(null);
+  const [photoURL, setPhotoURL] = useState("");
   const [loading, setLoading] = useState(true);
-	const history = useHistory();
+  const history = useHistory();
 
-
-	if (firebase.auth().currentUser === null) history.push("/");
+  if (firebase.auth().currentUser === null) history.push("/");
 
   useEffect(async () => {
     try {
@@ -28,6 +27,7 @@ const ProfilePage = () => {
       console.log(profileDoc.data());
       setName(profileDoc.data().name);
       setStatus(profileDoc.data().status);
+      setPhotoURL(profileDoc.data().photoURL);
     } catch (err) {
       console.log(err.message);
     }
@@ -41,19 +41,21 @@ const ProfilePage = () => {
 
   function handleUpload(e) {
     e.preventDefault();
-    const uploadTask = storage.ref(`/images/${file.name}`).put(file);
-    uploadTask.on("state_changed", console.log, console.error, () => {
-      storage
-        .ref("images")
-        .child(file.name)
-        .getDownloadURL()
-        .then(url => {
-          setFile(null);
-          console.log(url);
-          firebase.auth().currentUser.updateProfile({
-            photoURL: url
+
+    return new Promise((resolve, reject) => {
+      const uploadTask = storage.ref(`/images/${file.name}`).put(file);
+      uploadTask.on("state_changed", console.log, console.error, () => {
+        storage
+          .ref("images")
+          .child(file.name)
+          .getDownloadURL()
+          .then(url => {
+            setFile(null);
+            console.log(url);
+            setPhotoURL(url);
+            resolve(url);
           });
-        });
+      });
     });
   }
 
@@ -77,15 +79,14 @@ const ProfilePage = () => {
       console.log(name);
       console.log(status);
 
-      await profileDoc.ref.update({ name, status });
+      const url = await handleUpload(e);
 
-      console.log("Profile updated");
-      history.push("/dashboard");
+      await profileDoc.ref.update({ name, status, photoURL: url });
     } catch (err) {
       console.log(err.message);
     }
 
-    handleUpload(e);
+    history.push("/dashboard");
   };
 
   if (firebase.auth().currentUser == null) {
@@ -100,43 +101,49 @@ const ProfilePage = () => {
         <div className="profileLeft">
           <div className="form-group">
             <div className="circle" align="center">
-              <img className ="mask" src={firebase.auth().currentUser.photoURL}></img>
+              <img className="mask" src={photoURL}></img>
             </div>
             <div className="profileTxtLight">
               <label htmlFor="name">What're You Up To?</label>
             </div>
-              <input
-                type="text"
-                className="profileInput"
-                placeholder="Activity"
-                name="name"
-                value={name}
-                onChange={e => setName(e.target.value)}
-                required
-              />
+            <input
+              type="text"
+              className="profileInput"
+              placeholder="Activity"
+              name="name"
+              value={name}
+              onChange={e => setName(e.target.value)}
+              required
+            />
           </div>
           <div className="profileTxtLight">
-              <label htmlFor="status">Status</label>
-            </div>
-        <select
-          name="status"
-          id="status"
-          className="profileInput"
-          value={status}
-          onChange={e => setStatus(e.target.value)}
-        >
-          <option value="green">Green</option>
-          <option value="yellow">Yellow</option>
-          <option value="red">Red</option>
-          <option value="blue">Blue</option>
-        </select>
-        <div className="profileTxtLight">
-              <label htmlFor="file">Profile Pic</label>
-        </div>
-        <input type="file" className="profileTxtLight2" onChange={handleChange} />
-          <button className="backSubmitBtn" onClick={routeToDashboard}>Back</button>
+            <label htmlFor="status">Status</label>
+          </div>
+          <select
+            name="status"
+            id="status"
+            className="profileInput"
+            value={status}
+            onChange={e => setStatus(e.target.value)}
+          >
+            <option value="green">Green</option>
+            <option value="yellow">Yellow</option>
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+          </select>
+          <div className="profileTxtLight">
+            <label htmlFor="file">Profile Pic</label>
+          </div>
+          <input
+            type="file"
+            className="profileTxtLight2"
+            onChange={handleChange}
+          />
+          <button className="backSubmitBtn" onClick={routeToDashboard}>
+            Back
+          </button>
           <input type="submit" className="backSubmitBtn" value="Update" />
-      </div>
+        </div>
       </form>
       <div className="profileRight">
         <h2>hello world</h2>

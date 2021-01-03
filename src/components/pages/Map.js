@@ -3,6 +3,8 @@ import firebase, { db } from "../../firebase";
 import { useHistory } from "react-router-dom";
 import GoogleMapReact from "google-map-react";
 
+import Marker from "../layout/Marker";
+
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 const Map = () => {
@@ -30,7 +32,8 @@ const Map = () => {
 
       locArr.push({
         lat: doc.data().location.latitude,
-        lng: doc.data().location.longitude
+        lng: doc.data().location.longitude,
+        ...doc.data()
       });
     });
 
@@ -86,9 +89,18 @@ const Map = () => {
 
   if (loading) return <div>Loading...</div>;
 
-  const allLocations = [userLocation, ...othersLocations];
+  const allLocations = othersLocations;
   const markers = allLocations.map(loc => {
-    return <AnyReactComponent lat={loc.lat} lng={loc.lng} text="My Marker" />;
+    return (
+      <Marker
+        lat={loc.lat}
+        lng={loc.lng}
+        color="green"
+        name={loc.name}
+        url={loc.photoURL}
+        id={null}
+      />
+    );
   });
 
   return (

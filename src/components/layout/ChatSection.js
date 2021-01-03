@@ -108,7 +108,11 @@ export default function ChatSection({ chat }) {
         <ConversationHeader.Content>
           {" "}
           {chat.members.map(uid => (
-            <div>{profiles[uid].name}</div>
+            <div>
+              {profiles[uid].status === "anonymous"
+                ? "anon"
+                : profiles[uid].name}
+            </div>
           ))}
         </ConversationHeader.Content>
         <ConversationHeader.Actions>

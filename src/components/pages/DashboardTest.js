@@ -62,11 +62,15 @@ const DashboardTest = () => {
     return unsubscribe;
   }, []);
 
+	if (currUser === null)	{
+		history.push("/");
+		return <p>Loading...</p>
+		
+	}
   const profile = () => {
     history.push("/profile");
   };
 
-  if (currUser === null) history.push("/");
 
   return (
     <div

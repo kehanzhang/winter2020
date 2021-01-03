@@ -15,10 +15,8 @@ export default function Logout() {
       console.log("Signed Out!");
       setCurrUser(null);
 			
-      if (currUser === null) {
-				console.log('caught by auth')
-				history.push("/");
-			}
+			history.push("/");
+
     } catch (err) {
       console.log(err.message);
     }

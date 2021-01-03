@@ -86,12 +86,20 @@ const DashboardTest = () => {
             {chats.map(chat => {
               return (
                 <Conversation
-									name={chat.members.length > 2 ? chat.chatName : 
-										profiles[chat.members.filter((member) => member !== currUser.uid)[0]].status === "anonymous" ? "anon" : 
-										(profiles[currUser.uid].name !== chat.chatName.split('-')[0] ? 
-										chat.chatName.split('-')[0] : 
-										chat.chatName.split('-')[1]) 
-									}
+                  name={
+                    chat.members.length > 2
+                      ? chat.chatName
+                      : profiles[
+                          chat.members.filter(
+                            member => member !== currUser.uid
+                          )[0]
+                        ].status === "anonymous"
+                      ? "anon"
+                      : profiles[currUser.uid].name !==
+                        chat.chatName.split("-")[0]
+                      ? chat.chatName.split("-")[0]
+                      : chat.chatName.split("-")[1]
+                  }
                   onClick={() => {
                     setActiveChat(chat);
                     setDisplayMap(false);

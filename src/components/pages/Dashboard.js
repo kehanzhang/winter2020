@@ -1,7 +1,7 @@
-// import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
-// import { AuthContext } from "../Auth";
-// import { useHistory } from "react-router-dom";
+import { AuthContext } from "../Auth";
+import { useHistory } from "react-router-dom";
 
 import Container from "../layout/Container";
 import Logout from "../layout/Logout";

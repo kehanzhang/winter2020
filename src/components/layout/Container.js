@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import Chatbox from "./Chatbox";
 import { AuthContext } from "../Auth";
 
-export default function MainContainer() {
+export default function Container() {
   const { currUser } = useContext(AuthContext);
   const [chats, setChats] = useState([]);
   const [activeChat, setActiveChat] = useState(null);

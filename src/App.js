@@ -7,7 +7,7 @@ import Dashboard from "./components/pages/Dashboard";
 import DashboardTest from "./components/pages/DashboardTest";
 import ProfilePage from "./components/pages/ProfilePage";
 import Map from "./components/pages/Map";
-import Marker from "./components/pages/Marker";
+import Marker from "./components/layout/Marker";
 import { AuthProvider } from "./components/Auth";
 import "./App.css";
 

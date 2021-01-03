@@ -37,14 +37,23 @@ const DashboardTest = () => {
   const [loading, setLoading] = useState(true);
   const history = useHistory();
 
+  const initChat = childData => {
+    setActiveChat(childData);
+    setDisplayMap(false);
+  };
+
   useEffect(() => {
     const unsubscribe = db.collection("chat-groups").onSnapshot(snapshot => {
       if (currUser === null) history.push("/");
 
       let data = snapshot.docs
-        .filter(doc => doc.data().members.includes(currUser.uid))
-				.map(doc => doc.data());
-			
+        .filter(doc => {
+          if (!doc.data().members) return false;
+
+          return doc.data().members.includes(currUser.uid);
+        })
+        .map(doc => doc.data());
+
       setChats(data);
       setActiveChat(data[0]);
       setLoading(false);
@@ -74,7 +83,10 @@ const DashboardTest = () => {
               return (
                 <Conversation
                   name={chat.chatName}
-                  onClick={() => setActiveChat(chat)}
+                  onClick={() => {
+                    setActiveChat(chat);
+                    setDisplayMap(false);
+                  }}
                 >
                   <AvatarGroup size="sm">
                     {chat.members.map(uid => {
@@ -119,10 +131,17 @@ const DashboardTest = () => {
           </div>
         </Sidebar>
 
-				{displayMap ? (<Map />) : 
-					activeChat === null || currUser === null ? (<div>Loading...</div>) :
-					activeChat === undefined ? <ChatSection chat = {{members: [], id: 'emptyChat', chatName: 'default'}}/> : <ChatSection chat={activeChat}/> 
-        }
+        {displayMap ? (
+          <Map initChat={initChat} />
+        ) : activeChat === null || currUser === null ? (
+          <div>Loading...</div>
+        ) : activeChat === undefined ? (
+          <ChatSection
+            chat={{ members: [], id: "emptyChat", chatName: "default" }}
+          />
+        ) : (
+          <ChatSection chat={activeChat} />
+        )}
       </MainContainer>
     </div>
   );

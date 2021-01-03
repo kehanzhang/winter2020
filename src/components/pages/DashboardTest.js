@@ -34,9 +34,7 @@ const DashboardTest = () => {
   // Set initial message input value to empty string
   const [messageInputValue, setMessageInputValue] = useState("");
   const [displayMap, setDisplayMap] = useState(false);
-
   const [loading, setLoading] = useState(true);
-
   const history = useHistory();
 
   useEffect(() => {
@@ -45,7 +43,8 @@ const DashboardTest = () => {
 
       let data = snapshot.docs
         .filter(doc => doc.data().members.includes(currUser.uid))
-        .map(doc => doc.data());
+				.map(doc => doc.data());
+			
       setChats(data);
       setActiveChat(data[0]);
       setLoading(false);
@@ -116,13 +115,10 @@ const DashboardTest = () => {
           </div>
         </Sidebar>
 
-        {displayMap ? (
-          <Map />
-        ) : activeChat === null || currUser === null ? (
-          <div>Loading...</div>
-        ) : (
-          <ChatSection chat={activeChat} />
-        )}
+				{displayMap ? (<Map />) : 
+					activeChat === null || currUser === null ? (<div>Loading...</div>) :
+					activeChat === undefined ? <ChatSection chat = {{members: [], id: 'emptyChat', chatName: 'default'}}/> : <ChatSection chat={activeChat}/> 
+        }
       </MainContainer>
     </div>
   );

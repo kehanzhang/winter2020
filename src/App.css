@@ -99,20 +99,16 @@ transform: translate(-50%, -50%);
 */
 
 .pin {
-<<<<<<< HEAD
-=======
-
->>>>>>> 8626e3bb3992b52edadd5f46dc939ec4afdc770e
-width: 50px;
-height: 50px;
-border-radius: 50% 50% 50% 0;
-  /*pin color*/
-background: #00cae9; 
-position: absolute;
-transform: rotate(-45deg);
-left: 50%;
-top: 50%;
-margin: -20px 0 0 -20px;
+	width: 50px;
+	height: 50px;
+	border-radius: 50% 50% 50% 0;
+		/*pin color*/
+	background: #00cae9; 
+	position: absolute;
+	transform: rotate(-45deg);
+	left: 50%;
+	top: 50%;
+	margin: -20px 0 0 -20px;
 }
 .pin:after {
 content: "";

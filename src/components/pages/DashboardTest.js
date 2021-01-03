@@ -83,9 +83,9 @@ const DashboardTest = () => {
               return (
                 <Conversation
                   name={
-                    currUser.uid !== chat.chatName.split("-")[0]
-                      ? chat.chatName.split("-")[1]
-                      : chat.chatName.split("-")[0]
+                    profiles[currUser.uid].name !== chat.chatName.split("-")[0]
+                      ? chat.chatName.split("-")[0]
+                      : chat.chatName.split("-")[1]
                   }
                   onClick={() => {
                     setActiveChat(chat);

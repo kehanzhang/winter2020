@@ -1,54 +1,48 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, { useState, useEffect, useContext } from "react";
 import firebase, { db } from "../../firebase";
-import {useHistory} from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 
-import Chatbox from './Chatbox'
-import {AuthContext} from '../Auth'
+import Chatbox from "./Chatbox";
+import { AuthContext } from "../Auth";
 
 export default function MainContainer() {
-	const { currUser } = useContext(AuthContext);
-	const [chats, setChats] = useState([]);
+  const { currUser } = useContext(AuthContext);
+  const [chats, setChats] = useState([]);
   const [activeChat, setActiveChat] = useState(null);
-	const history = useHistory();
-  
+  const history = useHistory();
 
   useEffect(() => {
     const unsubscribe = db.collection("chat-groups").onSnapshot(snapshot => {
       let data = snapshot.docs
         .filter(doc => doc.data().members.includes(currUser.uid))
-				.map(doc => doc.data());
-			setChats(data);	
+        .map(doc => doc.data());
+      setChats(data);
     });
 
     return unsubscribe;
   }, []);
 
-  const renderChats = chats.slice();				//fixes infinite render errors
+  const renderChats = chats.slice(); //fixes infinite render errors
   const buttonlist = renderChats.map(chat => (
     <li key={chat.id}>
       <button onClick={() => setActiveChat(chat)}>{chat.chatName}</button>
     </li>
   ));
 
-  
-
   const profile = () => {
     history.push("/profile");
   };
-	return (
-		<div>
-			<div>
-        
+  return (
+    <div>
+      <div>
         <button onClick={profile}>TO THE PROFILES</button>
       </div>
-      <div>
+      {/* <div>
         <ul>{buttonlist}</ul>
-      </div>
+      </div> */}
       <div>
-        {activeChat === null
-          ? "no active chat"
-          : <Chatbox chat = {activeChat}/>}
+        {activeChat === null ? "no active chat" : <Chatbox chat={activeChat} />}
       </div>
-		</div>
-	)
+    </div>
+  );
 }

@@ -94,8 +94,7 @@ const Marker = props => {
           className="pin bounce"
           style={{
             backgroundColor: displayColor,
-            cursor: "pointer",
-            borderStyle: "dotted"
+            cursor: "pointer"
           }}
           title={name}
         >

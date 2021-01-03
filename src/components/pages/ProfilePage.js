@@ -87,6 +87,10 @@ const ProfilePage = props => {
     handleUpload(e);
   };
 
+  if (firebase.auth().currentUser == null) {
+    history.push("/");
+  }
+
   if (loading) return <div>Loading...</div>;
 
   return (

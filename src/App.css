@@ -110,6 +110,37 @@ display:inline-block;
 .btmPadding {
   padding-bottom: 10px;
 }
+
+.circle {
+  border-radius: 50%;
+  background-color: green;
+  border: 5px solid green;
+  width: 150px;
+  height: 150px; 
+}
+.mask {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 0px;
+  border-radius: 50%;
+}
+
+.profileLeft {
+  padding-left: 30px;
+  padding-top: 30px;
+  float: left;
+  width: 30%;
+}
+
+.profleRight {
+  padding: 30px;
+  float: right;
+  width: 70%;
+}
+
 /*
 .marker {
 position: absolute;

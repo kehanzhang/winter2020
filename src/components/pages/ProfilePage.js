@@ -95,18 +95,21 @@ const ProfilePage = props => {
 
   return (
     <Fragment>
-      <h1>Profile Page</h1>
       <form className="form" onSubmit={e => onSubmit(e)}>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Name"
-            name="name"
-            value={name}
-            onChange={e => setName(e.target.value)}
-            required
-          />
-        </div>
+        <div className="profileLeft">
+          <div className="form-group">
+            <div className="circle" align="center">
+              <img className ="mask" src={firebase.auth().currentUser.photoURL}></img>
+            </div>
+              <input
+                type="text"
+                placeholder="Name"
+                name="name"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                required
+              />
+          </div>
         <select
           name="status"
           id="status"
@@ -120,10 +123,12 @@ const ProfilePage = props => {
         </select>
         <input type="file" onChange={handleChange} />
         <input type="submit" className="btn btn-primary" value="Update" />
-        <img src={firebase.auth().currentUser.photoURL}></img>
+        <button onClick={routeToDashboard}>Back</button>
+      </div>
       </form>
-
-      <button onClick={routeToDashboard}>Back</button>
+      <div className="profileLeft">
+        <h2>hello world</h2>
+      </div>
     </Fragment>
   );
 };

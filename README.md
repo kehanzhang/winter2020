@@ -1,6 +1,6 @@
 # Readme
 
-**A location sharing app with a built-in chat service \nCreated for New Year New Hack 2020 by Alex Wang, Jeff Cheng, Kehan Zhang, and Lisa Tang.**
+*A location sharing app with a built-in chat service \nCreated for New Year New Hack 2020 by Alex Wang, Jeff Cheng, Kehan Zhang, and Lisa Tang.*
 
 ## Inspiration
 Our team of four are composed of students from Duke University, and we are extremely excited to be able to return to campus next semester. College always promises a great time as it gives us students a chance to interact with friends and meet new people. Dott (given permission) broadcasts a user’s availability and location. This allows people to skip the “are you free?” and directly visit their friends at their dorm room or find them in the library to study together. On top of this, we wanted to make a way for students to meet new people virtually, based off of location. Find it a little hard to introduce yourself to your hallmates? Send them a message on Dott! With this idea, our team set off to build an app with exactly what's needed: a map function and a chat function.

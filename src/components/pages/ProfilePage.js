@@ -3,13 +3,16 @@ import { useHistory } from "react-router-dom";
 import { AuthContext } from "../Auth";
 import firebase, { db, storage } from "../../firebase";
 
-const ProfilePage = props => {
+const ProfilePage = () => {
+
   const [name, setName] = useState("");
   const [status, setStatus] = useState("green");
-
   const [file, setFile] = useState(null);
-
   const [loading, setLoading] = useState(true);
+	const history = useHistory();
+
+
+	if (firebase.auth().currentUser === null) history.push("/");
 
   useEffect(async () => {
     try {
@@ -53,8 +56,6 @@ const ProfilePage = props => {
         });
     });
   }
-
-  const history = useHistory();
 
   const routeToDashboard = () => {
     history.push("/dashboard");

@@ -11,6 +11,7 @@ const ProfilePage = () => {
   const [loading, setLoading] = useState(true);
   const history = useHistory();
 
+
   if (firebase.auth().currentUser === null) history.push("/");
 
   useEffect(() => {
@@ -83,6 +84,8 @@ const ProfilePage = () => {
       console.log(name);
       console.log(status);
 
+     
+
       let url = photoURL;
       if (file !== null) url = await handleUpload(e);
 
@@ -105,13 +108,34 @@ const ProfilePage = () => {
   }
 
   if (loading) return <div>Loading...</div>;
-
+  let displayColor = "";
+  switch(status){
+    case "eager":
+      displayColor = "yellow";
+      break;
+    case "available":
+      displayColor = "green";
+      break;
+    case "unavailable":
+      displayColor = "red";
+      break;
+    case "anonymous":
+      displayColor = "gray";
+      break;
+    case "dnd":
+      displayColor = "purple";
+      break;
+  }
   return (
     <Fragment>
       <form className="form" onSubmit={e => onSubmit(e)}>
         <div className="profileLeft">
           <div className="form-group">
-            <div className="circle" align="center">
+            <div className="circle" align="center"          
+              style={{
+                backgroundColor: displayColor,
+                border: displayColor
+              }}>
               <img className="mask" src={photoURL}></img>
             </div>
             <div className="profileTxtLight">
@@ -157,9 +181,6 @@ const ProfilePage = () => {
           <input type="submit" className="backSubmitBtn" value="Update" />
         </div>
       </form>
-      <div className="profileRight">
-        <h2>hello world</h2>
-      </div>
     </Fragment>
   );
 };

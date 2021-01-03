@@ -1,8 +1,9 @@
 import React from "react";
 import defaultIco from "../assets/logo.png";
 
-const Marker = props => {
-  const { color, name, id, url } = props;
+const Marker = (props) => {
+	const { color, name, id, url } = props;
+	console.log(color, name, id, url);
   return (
     <div>
       <div

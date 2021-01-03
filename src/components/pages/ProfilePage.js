@@ -80,7 +80,7 @@ const ProfilePage = () => {
       console.log(status);
 
       const url = await handleUpload(e);
-
+			
       await profileDoc.ref.update({ name, status, photoURL: url });
     } catch (err) {
       console.log(err.message);

@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import firebase, { db } from "../../firebase";
 import { useHistory } from "react-router-dom";
 import GoogleMapReact from "google-map-react";
 
 import Marker from "../layout/Marker";
-
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+import { AuthContext } from "../Auth";
 
 const Map = () => {
   const defaultProps = {
@@ -19,6 +18,7 @@ const Map = () => {
   const [userLocation, setUserLocation] = useState({ lat: 0, lng: 0 });
   const [othersLocations, setOthersLocations] = useState([]);
   const [loading, setLoading] = useState("true");
+	const {currUser, profiles} = useContext(AuthContext)
 
   const getOthersLocations = async () => {
     let locArr = [];
@@ -26,33 +26,24 @@ const Map = () => {
     const query = await db.collection("profiles").get();
 
     query.forEach(doc => {
-      console.log(
-        doc.data().location.latitude + " " + doc.data().location.longitude
-      );
-
       locArr.push({
         lat: doc.data().location.latitude,
         lng: doc.data().location.longitude,
-        ...doc.data()
+        id: doc.data().user
       });
     });
 
     setOthersLocations(locArr);
-    console.log(locArr);
     setLoading(false);
   };
 
   useEffect(() => {
-    if (navigator.geolocation) console.log("it exists");
-
     navigator.geolocation.getCurrentPosition(
       async pos => {
         setUserLocation({
           lat: pos.coords.latitude,
           lng: pos.coords.longitude
         });
-        console.log(pos.coords.latitude);
-        console.log(pos.coords.longitude);
 
         // Update current user's location in database
 
@@ -89,16 +80,16 @@ const Map = () => {
 
   if (loading) return <div>Loading...</div>;
 
-  const allLocations = othersLocations;
+	const allLocations = othersLocations;
   const markers = allLocations.map(loc => {
     return (
       <Marker
         lat={loc.lat}
         lng={loc.lng}
-        color="green"
-        name={loc.name}
-        url={loc.photoURL}
-        id={null}
+        color={profiles[loc.id].status}
+        name={profiles[loc.id].name}
+        url={profiles[loc.id].photoURL}
+        id={loc.id}
       />
     );
   });

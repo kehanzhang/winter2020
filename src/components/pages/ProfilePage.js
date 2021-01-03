@@ -102,18 +102,26 @@ const ProfilePage = () => {
             <div className="circle" align="center">
               <img className ="mask" src={firebase.auth().currentUser.photoURL}></img>
             </div>
+            <div className="profileTxtLight">
+              <label htmlFor="name">What're You Up To?</label>
+            </div>
               <input
                 type="text"
-                placeholder="Name"
+                className="profileInput"
+                placeholder="Activity"
                 name="name"
                 value={name}
                 onChange={e => setName(e.target.value)}
                 required
               />
           </div>
+          <div className="profileTxtLight">
+              <label htmlFor="status">Status</label>
+            </div>
         <select
           name="status"
           id="status"
+          className="profileInput"
           value={status}
           onChange={e => setStatus(e.target.value)}
         >
@@ -122,12 +130,15 @@ const ProfilePage = () => {
           <option value="red">Red</option>
           <option value="blue">Blue</option>
         </select>
-        <input type="file" onChange={handleChange} />
-        <input type="submit" className="btn btn-primary" value="Update" />
-        <button onClick={routeToDashboard}>Back</button>
+        <div className="profileTxtLight">
+              <label htmlFor="file">Profile Pic</label>
+        </div>
+        <input type="file" className="profileTxtLight2" onChange={handleChange} />
+          <button className="backSubmitBtn" onClick={routeToDashboard}>Back</button>
+          <input type="submit" className="backSubmitBtn" value="Update" />
       </div>
       </form>
-      <div className="profileLeft">
+      <div className="profileRight">
         <h2>hello world</h2>
       </div>
     </Fragment>

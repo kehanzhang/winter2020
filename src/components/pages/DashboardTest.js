@@ -82,7 +82,7 @@ const DashboardTest = () => {
             {chats.map(chat => {
               return (
                 <Conversation
-                  name={chat.chatName}
+                  name={currUser.uid !== chat.chatName.split('-')[0] ? chat.chatName.split('-')[0] : chat.chatName.split('-')[1]}
                   onClick={() => {
                     setActiveChat(chat);
                     setDisplayMap(false);

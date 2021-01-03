@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import firebase, { db } from "../../firebase";
+import { AuthContext } from "../Auth";
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
   MainContainer,
@@ -10,10 +12,9 @@ import {
   Search,
   ConversationList,
   Avatar,
+  AvatarGroup,
   Conversation,
   ConversationHeader,
-  VoiceCallButton,
-  VideoCallButton,
   EllipsisButton,
   TypingIndicator,
   MessageSeparator
@@ -23,17 +24,41 @@ import defaultIco from "../assets/logo.png";
 
 import Map from "./Map";
 import Logout from "../layout/Logout";
+import ChatSection from "../layout/ChatSection";
 
 const DashboardTest = () => {
+  const { currUser, profiles } = useContext(AuthContext);
+  const [chats, setChats] = useState([]);
+  const [activeChat, setActiveChat] = useState(null);
+
   // Set initial message input value to empty string
   const [messageInputValue, setMessageInputValue] = useState("");
   const [displayMap, setDisplayMap] = useState(false);
 
+  const [loading, setLoading] = useState(true);
+
   const history = useHistory();
+
+  useEffect(() => {
+    const unsubscribe = db.collection("chat-groups").onSnapshot(snapshot => {
+      if (currUser === null) history.push("/");
+
+      let data = snapshot.docs
+        .filter(doc => doc.data().members.includes(currUser.uid))
+        .map(doc => doc.data());
+      setChats(data);
+      setActiveChat(data[0]);
+      setLoading(false);
+    });
+
+    return unsubscribe;
+  }, []);
 
   const profile = () => {
     history.push("/profile");
   };
+
+  if (currUser === null) history.push("/");
 
   return (
     <div
@@ -46,64 +71,61 @@ const DashboardTest = () => {
         <Sidebar position="left" scrollable={false}>
           <Search placeholder="Search..." />
           <ConversationList>
-            <Conversation
-              name="Lilly"
-              lastSenderName="Lilly"
-              info="Yes i can do it for you"
-            >
-              <Avatar src={defaultIco} name="Lilly" status="available" />
-            </Conversation>
+            {chats.map(chat => {
+              return (
+                <Conversation
+                  name={chat.chatName}
+                  onClick={() => setActiveChat(chat)}
+                >
+                  <AvatarGroup size="sm">
+                    {chat.members.map(uid => {
+                      //console.log(uid);
+
+                      const profile = profiles.filter(
+                        profile => profile.user === uid
+                      )[0];
+
+                      if (profile === null) return null;
+
+                      return (
+                        <Avatar
+                          src={defaultIco}
+                          name={profile.name}
+                          status="available"
+                        />
+                      );
+                    })}
+                  </AvatarGroup>
+                </Conversation>
+              );
+            })}
           </ConversationList>
           <div align="center" className="btmPadding">
             <div className="leftBtn">
-              <button className="toggleButton" onClick={profile}>Profile</button>
+              <button className="toggleButton" onClick={profile}>
+                Profile
+              </button>
             </div>
             <div className="midBtn">
-              <button className="toggleButton" onClick={() => setDisplayMap(!displayMap)}>Toggle</button>
+              <button
+                className="toggleButton"
+                onClick={() => setDisplayMap(!displayMap)}
+              >
+                Toggle
+              </button>
             </div>
             <div className="rightBtn">
-              <Logout /> 
+              <Logout />
             </div>
           </div>
         </Sidebar>
 
         {displayMap ? (
           <Map />
+        ) : activeChat === null || currUser === null ? (
+          <div>Loading...</div>
         ) : (
-          <ChatContainer>
-            <ConversationHeader>
-              <ConversationHeader.Back />
-              <Avatar src={defaultIco} name="Zoe" />
-              <ConversationHeader.Content
-                userName="Zoe"
-                info="Active 10 mins ago"
-              />
-              <ConversationHeader.Actions>
-                <EllipsisButton orientation="vertical" />
-              </ConversationHeader.Actions>
-            </ConversationHeader>
-            <MessageList
-              typingIndicator={<TypingIndicator content="Zoe is typing" />}
-            >
-              <MessageSeparator content="Saturday, 30 November 2019" />
-              <Message
-                model={{
-                  message: "Hello my friend",
-                  sentTime: "15 mins ago",
-                  sender: "Zoe",
-                  direction: "incoming",
-                  position: "single"
-                }}
-              >
-                <Avatar src={defaultIco} name="Zoe" />
-              </Message>
-            </MessageList>
-            <MessageInput
-              placeholder="Type message here"
-              value={messageInputValue}
-              onChange={val => setMessageInputValue(val)}
-            />
-          </ChatContainer>
+          <ChatSection chat={activeChat} />
         )}
       </MainContainer>
     </div>

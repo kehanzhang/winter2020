@@ -6,7 +6,7 @@ import Chatbox from "./Chatbox";
 import { AuthContext } from "../Auth";
 import CreateChat from './CreateChat'
 
-export default function MainContainer() {
+export default function Container() {
   const { currUser } = useContext(AuthContext);
   const [chats, setChats] = useState([]);
   const [activeChat, setActiveChat] = useState(null);

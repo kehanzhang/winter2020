@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import Chatbox from "./Chatbox";
 import { AuthContext } from "../Auth";
+import CreateChat from './CreateChat'
 
 export default function MainContainer() {
   const { currUser } = useContext(AuthContext);
@@ -11,16 +12,29 @@ export default function MainContainer() {
   const [activeChat, setActiveChat] = useState(null);
   const history = useHistory();
 
+
   useEffect(() => {
     const unsubscribe = db.collection("chat-groups").onSnapshot(snapshot => {
       let data = snapshot.docs
-        .filter(doc => doc.data().members.includes(currUser.uid))
+        .filter(doc => {
+					if(doc.data().members === undefined)	return false
+					else return doc.data().members.includes(currUser.uid)
+				})
         .map(doc => doc.data());
       setChats(data);
     });
 
     return unsubscribe;
   }, []);
+
+	const create = () => {
+		setActiveChat("creationseed")
+	}
+	
+	const callBack = (childData) => {
+		this.setActiveChat(childData);
+	}
+	
 
   const renderChats = chats.slice(); //fixes infinite render errors
   const buttonlist = renderChats.map(chat => (
@@ -29,19 +43,20 @@ export default function MainContainer() {
     </li>
   ));
 
-  const profile = () => {
-    history.push("/profile");
-  };
   return (
     <div>
       <div>
-        <button onClick={profile}>TO THE PROFILES</button>
+        <button onClick={() => {history.push("/profile")}}>TO THE PROFILES</button>
       </div>
+			<div>
+				<button onClick = {create}>Create Chat</button>
+			</div>
       <div>
         <ul>{buttonlist}</ul>
       </div>
       <div>
-        {activeChat === null ? "no active chat" : <Chatbox chat={activeChat} />}
+        {activeChat === null ? "no active chat" : 
+					activeChat === "creationseed" ? <CreateChat callback = {callBack}/> : <Chatbox chat={activeChat} />}
       </div>
     </div>
   );

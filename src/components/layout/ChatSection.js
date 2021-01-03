@@ -92,7 +92,6 @@ export default function ChatSection({ chat }) {
         >
           <Message.Header
             sender={msender2.status === "anonymous" ? "anon" : msendername}
-            sentBy={message.sentAt.toString()}
           />
         </Message>
       </>

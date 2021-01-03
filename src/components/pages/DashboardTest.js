@@ -79,15 +79,19 @@ const DashboardTest = () => {
                 >
                   <AvatarGroup size="sm">
                     {chat.members.map(uid => {
-                      const profile = profiles[uid]
+                      const profile = profiles[uid];
 
                       if (profile === null) return null;
 
                       return (
                         <Avatar
-                          src={defaultIco}
+                          src={
+                            profile.photoURL === ""
+                              ? defaultIco
+                              : profile.photoURL
+                          }
                           name={profile.name}
-                          status="available"
+                          status={profile.status}
                         />
                       );
                     })}

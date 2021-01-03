@@ -7,9 +7,15 @@ const Marker = props => {
     <div>
       <div
         className="pin bounce"
-        style={{ backgroundColor: color, cursor: "pointer" }}
+        style={{
+          backgroundColor: color,
+          cursor: "pointer",
+          borderStyle: "dotted"
+        }}
         title={name}
-      ></div>
+      >
+        <img src={url == "" ? defaultIco : url} className="marker-img"></img>
+      </div>
 
       <div className="pulse" />
     </div>

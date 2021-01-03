@@ -13,26 +13,30 @@ const ProfilePage = () => {
 
   if (firebase.auth().currentUser === null) history.push("/");
 
-  useEffect(async () => {
-    try {
-      const uid = firebase.auth().currentUser.uid;
+  useEffect(() => {
+    const prefillData = async () => {
+      try {
+        const uid = firebase.auth().currentUser.uid;
 
-      const query = await db
-        .collection("profiles")
-        .where("user", "==", uid)
-        .get();
+        const query = await db
+          .collection("profiles")
+          .where("user", "==", uid)
+          .get();
 
-      const profileDoc = query.docs[0];
+        const profileDoc = query.docs[0];
 
-      console.log(profileDoc.data());
-      setName(profileDoc.data().name);
-      setStatus(profileDoc.data().status);
-      setPhotoURL(profileDoc.data().photoURL);
-    } catch (err) {
-      console.log(err.message);
-    }
+        console.log(profileDoc.data());
+        setName(profileDoc.data().name);
+        setStatus(profileDoc.data().status);
+        setPhotoURL(profileDoc.data().photoURL);
+      } catch (err) {
+        console.log(err.message);
+      }
 
-    setLoading(false);
+      setLoading(false);
+    };
+
+    prefillData();
   }, []);
 
   function handleChange(e) {
@@ -79,11 +83,18 @@ const ProfilePage = () => {
       console.log(name);
       console.log(status);
 
-      const url = await handleUpload(e);
+      let url = photoURL;
+      if (file !== null) url = await handleUpload(e);
 
-      await profileDoc.ref.update({ name, status, photoURL: url });
+      await profileDoc.ref.update({
+        name: name,
+        status: status,
+        photoURL: url
+      });
+
+      console.log(profileDoc.data());
     } catch (err) {
-      console.log(err.message);
+      console.log(err);
     }
 
     history.push("/dashboard");
@@ -126,10 +137,11 @@ const ProfilePage = () => {
             value={status}
             onChange={e => setStatus(e.target.value)}
           >
-            <option value="green">Green</option>
-            <option value="yellow">Yellow</option>
-            <option value="red">Red</option>
-            <option value="blue">Blue</option>
+            <option value="available">available</option>
+            <option value="anonymous">anonymous</option>
+            <option value="unavailable">unavailable</option>
+            <option value="dnd">dnd</option>
+            <option value="eager">eager</option>
           </select>
           <div className="profileTxtLight">
             <label htmlFor="file">Profile Pic</label>

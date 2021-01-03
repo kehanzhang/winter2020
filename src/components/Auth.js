@@ -7,16 +7,18 @@ export const AuthContext = React.createContext();
 export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 	const [currUser, setCurrUser] = useState(null);
-	const [profiles, setProfiles] = useState([]);
+	const [profiles, setProfiles] = useState({});
 
 	useEffect(() => {
 		const unsubscribe = firebase
 			.firestore()
 			.collection('profiles')
 			.onSnapshot(snapshot => {
-				let data = snapshot.docs
+				let users = snapshot.docs
 					.map(doc => doc.data());
-				setProfiles(data);
+				
+				let dataDict = users.reduce((a,x) => ({...a, [x.user]: x}), {})
+				setProfiles(dataDict);
 			})
 		return unsubscribe;
 	}, []);

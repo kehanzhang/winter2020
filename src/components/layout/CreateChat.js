@@ -8,7 +8,7 @@ export default function CreateChat({callBack}) {
 	const [firstText, setFirstText] = useState('');
 	const [recipient, setRecipient] = useState('');
 
-	const friends = profiles.filter((profile) => profile.user === currUser.uid).map(profile => profile.friends)[0]
+	const friends = profiles[currUser.uid].friends;
 
 	const createChat = (e) => {
 		e.preventDefault();
@@ -20,7 +20,7 @@ export default function CreateChat({callBack}) {
 					let groupDocRef = db.collection('chat-groups').doc(docRef.id)
 					id = docRef.id;
 					const newChat = {
-						chatName: recipient,
+						chatName: profiles[recipient].name,
 						createdAt: Date.now(),
 						createdBy: currUser.uid,
 						id: docRef.id,
@@ -46,31 +46,6 @@ export default function CreateChat({callBack}) {
 		}
 	}
 
-	// const createChat = (e) => {
-	// 	e.preventDefault();
-
-	// 	if (firstText !== '' && friends.includes(recipient)) {
-	// 		const newChat = {
-	// 			chatName: recipient,
-	// 			createdAt: Date.now(),
-	// 			createdBy: currUser.uid,
-	// 			members: [currUser.uid, recipient]
-	// 		}
-	// 		db.collection('chat-groups').add({
-	// 			chatName: recipient,
-	// 			createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-	// 			createdBy: currUser.uid,
-	// 			members: [currUser.uid, recipient]
-	// 		})
-	// 			.then((docRef) => {
-	// 				docRef.update({
-	// 					id: docRef.id,
-	// 				})
-	// 				callBack(newChat)
-	// 			})
-				
-	// 	}
-	// }
 
 	return (
 		<div>

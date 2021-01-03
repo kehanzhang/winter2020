@@ -73,23 +73,28 @@ export default function ChatSection({ chat }) {
   }, [id]);
 
   const messageList = messages.map(message => {
-		const uid = firebase.auth().currentUser.uid;
-		const msender = message.sentBy
-		const msender2 = profiles[msender]
-		const msendername = msender2 === undefined ? "User Deleted" : msender2.name
+    const uid = firebase.auth().currentUser.uid;
+    const msender = message.sentBy;
+    const msender2 = profiles[msender];
+    const msendername = msender2 === undefined ? "User Deleted" : msender2.name;
+
+    if (msender2 === undefined) return null;
+
     return (
-			<>
-				<Message
-					model={{
-						message: message.text,
-						sender: msender,
-						direction: msender === uid ? "outgoing" : "incoming",
-						position: "single"
-					}}
-				>
-				<Message.Header sender = {msendername}/>
-				</Message>
-			</>
+      <>
+        <Message
+          model={{
+            message: message.text,
+            sender: msender,
+            direction: msender === uid ? "outgoing" : "incoming",
+            position: "single"
+          }}
+        >
+          <Message.Header
+            sender={msender2.status === "anonymous" ? "anon" : msendername}
+          />
+        </Message>
+      </>
     );
   });
 
@@ -103,7 +108,11 @@ export default function ChatSection({ chat }) {
         <ConversationHeader.Content>
           {" "}
           {chat.members.map(uid => (
-            <div>{profiles[uid].name}</div>
+            <div>
+              {profiles[uid].status === "anonymous"
+                ? "anon"
+                : profiles[uid].name}
+            </div>
           ))}
         </ConversationHeader.Content>
         <ConversationHeader.Actions>

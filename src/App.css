@@ -113,8 +113,8 @@ body {
 
 .circle {
   border-radius: 50%;
-  background-color: green;
-  border: 5px solid green;
+  /* background-color: yellow;
+  border: 5px solid yellow; */
   width: 150px;
   height: 150px;
   margin-top: 30px;

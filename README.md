@@ -1,4 +1,4 @@
-#Readme \n
+# Readme
 
 **A location sharing app with a built-in chat service \n
 

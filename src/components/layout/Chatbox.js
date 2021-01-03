@@ -12,12 +12,9 @@ export default function Chatbox({chat}) {
 		e.preventDefault()
 		if (formText !== '') {
 			//push to firebase
-			console.log(formText);
 			db.collection('chat-messages').doc(id).collection('messages').add({})
 			.then(function(docRef) {
 				var messageDocRef = db.collection('chat-messages').doc(id).collection('messages').doc(docRef.id)
-				//console.log("Document written with ID: ", docRef.id);
-
 				const newMessage = {
 					sentAt: firebase.firestore.FieldValue.serverTimestamp(),
 					sentBy: currUser.uid,

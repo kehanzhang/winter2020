@@ -1,4 +1,5 @@
-#Readme
+#Readme \n
+
 **A location sharing app with a built-in chat service \n
 
 Created for New Year New Hack 2020 by Alex Wang, Jeff Cheng, Kehan Zhang, and Lisa Tang.**

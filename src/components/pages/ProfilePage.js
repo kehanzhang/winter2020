@@ -83,6 +83,7 @@ const ProfilePage = () => {
       console.log(name);
       console.log(status);
 
+<<<<<<< HEAD
       let url = photoURL;
       if (file !== null) url = await handleUpload(e);
 
@@ -93,6 +94,11 @@ const ProfilePage = () => {
       });
 
       console.log(profileDoc.data());
+=======
+      const url = await handleUpload(e);
+			
+      await profileDoc.ref.update({ name, status, photoURL: url });
+>>>>>>> 55cb064b75fe8070d40a0ffd269c3566856835e4
     } catch (err) {
       console.log(err);
     }

@@ -134,8 +134,10 @@ const ProfilePage = () => {
               <label htmlFor="file">Profile Pic</label>
         </div>
         <input type="file" className="profileTxtLight2" onChange={handleChange} />
+        <div>
           <button className="backSubmitBtn" onClick={routeToDashboard}>Back</button>
           <input type="submit" className="backSubmitBtn" value="Update" />
+        </div>
       </div>
       </form>
       <div className="profileRight">

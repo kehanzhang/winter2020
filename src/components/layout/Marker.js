@@ -10,7 +10,6 @@ const Marker = (props) => {
         style={{
           backgroundColor: color,
           cursor: "pointer",
-          borderStyle: "dotted"
         }}
         title={name}
       >

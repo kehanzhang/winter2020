@@ -56,7 +56,8 @@ body {
   text-align: left;
 }
 
-/* width: 275px;
+.inputFields {
+  width: 275px;
   height: 50px;
   border: 1px;
   color: solid #ffffff;
@@ -64,21 +65,20 @@ body {
   font-size: 15pt;
   font-weight: 500;
 }
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.columnLeft {
+  display: inline-block;
   margin-right: 100px;
-} */
-
-.columnRight {
+}
+*/ .columnRight {
   display: inline-block;
 }
-
-/* display:inline-block;
-margin-right:100px; 
-}  */
-
-.columnRight {
-  display: inline-block;
-}
-
 /*
 .marker {
 position: absolute;
@@ -98,8 +98,8 @@ transform: translate(-50%, -50%);
 */
 
 .pin {
-  width: 30px;
-  height: 30px;
+  width: 50px;
+  height: 50px;
   border-radius: 50% 50% 50% 0;
   /*pin color*/
   background: #00cae9;
@@ -178,7 +178,7 @@ transform: translate(-50%, -50%);
 
   60% {
     opacity: 1;
-    transform: translateY(30px) rotate(-45deg);
+    transform: translateY(50px) rotate(-45deg);
   }
 
   80% {

@@ -8,8 +8,6 @@ export default function Chatbox({chat}) {
 	const [formText, setFormText] = useState("");
 	const {currUser} = useContext(AuthContext);
 
-	
-
 	const sendMessage = (e) => {
 		e.preventDefault()
 		if (formText !== '') {
@@ -43,8 +41,9 @@ export default function Chatbox({chat}) {
 	}, [id])
 
 	const messageList = messages.map(message => {
+
 		return (
-			<li key = {message.id}>{message.text}</li>
+			<li key = {message.id === undefined ? "temp" : message.id}>{message.text}</li>
 		)
 	})
 

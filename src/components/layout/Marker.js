@@ -9,6 +9,26 @@ import { Modal } from "react-responsive-modal";
 
 const Marker = props => {
   const { color, name, id, url, callBack } = props;
+
+    let displayColor = color;
+    switch(color){
+      case "eager":
+        displayColor = "yellow";
+        break;
+      case "available":
+        displayColor = "green";
+        break;
+      case "unavailable":
+        displayColor = "red";
+        break;
+      case "anonymous":
+        displayColor = "gray";
+        break;
+      case "dnd":
+        displayColor = "purple";
+        break;
+    }
+
   const recipient = id;
   const history = useHistory();
 
@@ -73,9 +93,8 @@ const Marker = props => {
         <div
           className="pin bounce"
           style={{
-            backgroundColor: color,
-            cursor: "pointer",
-            borderStyle: "dotted"
+            backgroundColor: displayColor,
+            cursor: "pointer"
           }}
           title={color === "anonymous" ? null : name}
         >

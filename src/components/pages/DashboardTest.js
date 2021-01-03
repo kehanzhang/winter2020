@@ -79,11 +79,7 @@ const DashboardTest = () => {
                 >
                   <AvatarGroup size="sm">
                     {chat.members.map(uid => {
-                      //console.log(uid);
-
-                      const profile = profiles.filter(
-                        profile => profile.user === uid
-                      )[0];
+                      const profile = profiles[uid]
 
                       if (profile === null) return null;
 

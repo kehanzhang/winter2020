@@ -18,7 +18,7 @@ import defaultIco from "../assets/logo.png";
 export default function ChatSection({ chat }) {
   const [messages, setMessages] = useState([]);
   const [formText, setFormText] = useState("");
-  const { currUser } = useContext(AuthContext);
+  const { currUser, profiles } = useContext(AuthContext);
 
   //const [messageInputValue, setMessageInputValue] = useState("");
 
@@ -66,7 +66,6 @@ export default function ChatSection({ chat }) {
           .sort((m1, m2) => {
             return m1.sentAt - m2.sentAt;
           });
-        console.log(data);
         setMessages(data);
         setLoading(false);
       });
@@ -98,7 +97,7 @@ export default function ChatSection({ chat }) {
         <ConversationHeader.Content>
           {" "}
           {chat.members.map(uid => (
-            <div>{uid}</div>
+            <div>{profiles[uid].name}</div>
           ))}
         </ConversationHeader.Content>
         <ConversationHeader.Actions>

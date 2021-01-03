@@ -51,7 +51,7 @@ const ProfilePage = () => {
           .getDownloadURL()
           .then(url => {
             setFile(null);
-            console.log(url);
+            // console.log(url);
             setPhotoURL(url);
             resolve(url);
           });
